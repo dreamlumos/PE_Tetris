@@ -1,24 +1,24 @@
 public class Case{
 
-	private int ligne;
-	private int colonne;
+	private int row;
+	private int column;
 
-	public Case(int ligne, int colonne){
+	public Case(int row, int column){
 
-		this.ligne = ligne;
-		this.colonne = colonne;
-
-	}
-
-	public int getLigne(){
-
-		return ligne;
+		this.row = row;
+		this.column = column;
 
 	}
 
-	public int getColonne(){
+	public int getRow(){
 
-		return colonne;
+		return row;
+
+	}
+
+	public int getColumn(){
+
+		return column;
 		
 	}
 

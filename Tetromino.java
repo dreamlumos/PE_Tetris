@@ -1,64 +1,67 @@
 public class Tetromino{
 
-	private int ligne0; //ligne de la case [0,0]
-	private int colonne0;
+	private int row0; //ligne de la case [0,0]
+	private int column0;
 	private Case[][] tabTiles;
-	private int couleur;
+	private int colour;
 
-	public Tetromino(Case[][] tabTiles, int couleur, Plateau gameboard){
+	public Tetromino(Case[][] tabTiles, int colour, Plateau gameboard){
 
-		ligne0 = get
-		this.colonne = colonne;
-		this.couleur = couleur;
+		row0 = get
+		this.column = column;
+		this.colour = colour;
 
 	}
 
-	public Case(int couleur, Case[] tabTetromino){
+	public Case(int colour, Case[] tabTetromino){
 		
-		this.couleur = (int) Math.random()*7+1;
+		this.colour = (int) Math.random()*7+1;
 		this.tab = tabTetromino[]
 	}
 
-	public int getLigne(){
+	public int getRow(){
 
-		return ligne;
+		return row;
 
 	}
 
-	public int getColonne(){
+	public int getColumn(){
 
-		return colonne;
+		return column;
 		
 	}
 
-	public int getCouleur(){
+	public int getColour(){
 
-		return couleur;
+		return colour;
 
 	}
 
 	public int getTab(){
 
-		return couleur;
+		return colour;
 
 	}
 	
 	public void moveLeft(){
 
-		if (colonne0 > 0) {
-			colonne0 -= 1;
+		if (column0 > 0) {
+			column0 -= 1;
 		}
 
 	}
 
-	public void moveRight(int nbColonnes){
+	public void moveRight(int nbcolumns){
 
-		if (colonne0 < nbColonnes) {
-			colonne0 += 1;
+		if (column0 < nbcolumns) {
+			column0 += 1;
 		}
 
 	}	
 
-	public void hardDrop(Plateau )
+	public void hardDrop(Plateau ){
+
+		
+	}
 
 }
