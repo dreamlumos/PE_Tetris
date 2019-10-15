@@ -1,28 +1,37 @@
 public class Plateau{
 
-	private static final Plateau PLATEAU = new Plateau();
+	private static final Plateau PLATEAU = new Plateau(int nbRows, int nbColumns);
 
-	private int nbRow;
-	private int nbColumn;
+	private int nbRows;
+	private int nbColumns;
 	private int[][] tab;
 
-	public Plateau(int nbLignes, int nbColonnes, int[][] tab){
+	public Plateau(int nbRows, int nbColumns){
 
-		this.nbLignes = nbLignes;
-		this.nbColonnes = nbColonnes;
-		this.tab = tab;
+		this.nbRows = nbRows;
+		this.nbColumns = nbColumns;
+		tab = new int[nbRows][nbColumns];
+
+		for (int i=0; i < nbRows; i++){
+
+			for (int j=0; i < nbRows; i++){
+
+				tab[i][j] = 0; //On initialise toutes les cases du tableau à vide
+
+			}
+		}
 
 	}
 
 	public int getNbL(){
 
-		return nbLignes;
+		return nbRows;
 
 	}
 
 	public int getNbC(){
 
-		return nbColonnes;
+		return nbColumns;
 		
 	}
 
