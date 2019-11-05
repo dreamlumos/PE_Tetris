@@ -46,12 +46,6 @@ public class Tetromino{
 
 	}
 
-	public Case(int colour, Case[] tabTetromino){
-		
-		this.colour = (int) Math.random()*7+1;
-		this.tab = tabTetromino[]
-	}
-
 	public int getRow(){
 
 		return row;
