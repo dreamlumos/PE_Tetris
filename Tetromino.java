@@ -1,3 +1,5 @@
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 public class Tetromino{
 
 	private int row0; //ligne de la case [0,0]
@@ -86,9 +88,12 @@ public class Tetromino{
 
 	}	
 
-	public void hardDrop(Plateau ){
-
+	public void hardDrop(KeyEvent event){
+		if (event.getKeyChar() == VK_SPACE){
 		
+		}
+			
+	
 	}
 
 }
