@@ -2,7 +2,7 @@ public class Tetromino{
 
 	private int row0; //ligne de la case [0,0]
 	private int column0;
-	private Case[][] tabTiles;
+	private int[][] tabTiles;
 	private int colour;
 
 	public Tetromino(int colour, Plateau gameboard){
@@ -46,25 +46,19 @@ public class Tetromino{
 
 	}
 
-	public int getRow(){
+	public int getRow0(){
 
-		return row;
+		return row0;
 
 	}
 
-	public int getColumn(){
+	public int getColumn0(){
 
-		return column;
+		return column0;
 		
 	}
 
 	public int getColour(){
-
-		return colour;
-
-	}
-
-	public int getTab(){
 
 		return colour;
 
@@ -78,15 +72,15 @@ public class Tetromino{
 
 	}
 
-	public void moveRight(int nbcolumns){
+	public void moveRight(Plateau gameboard){
 
-		if (column0 < nbcolumns) {
+		if (column0 < gameboard.getNbC()) {
 			column0 += 1;
 		}
 
 	}	
 
-	public void hardDrop(Plateau ){
+	public void hardDrop(Plateau gameboard){
 
 		
 	}
