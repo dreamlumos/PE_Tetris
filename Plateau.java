@@ -1,6 +1,6 @@
 public class Plateau{
 
-	private static final Plateau PLATEAU = new Plateau(int nbRows, int nbColumns);
+	public static final Plateau PLATEAU = new Plateau(int nbRows, int nbColumns);
 
 	private int nbRows;
 	private int nbColumns;
