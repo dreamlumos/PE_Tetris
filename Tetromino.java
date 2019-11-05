@@ -4,7 +4,7 @@ public class Tetromino{
 
 	private int row0; //ligne de la case [0,0]
 	private int column0;
-	private Case[][] tabTiles;
+	private int[][] tabTiles;
 	private int colour;
 
 	public Tetromino(int colour, Plateau gameboard){
@@ -16,47 +16,55 @@ public class Tetromino{
 
 		switch (colour) {
 
-			case 0: //Tetromino O (yellow)
-				tabTiles = [[0,0],[0,1],[1,0],[1,1]]; 
+			case 1: //Tetromino O (yellow)
+
+				int[][] tab1 = {{0,0},{0,1},{1,0},{1,1}};
+				tabTiles = tab1; 
 				break;
 
-			case 1: //Tetromino I (light blue)
-				tabTiles = [[0,0],[0,1],[0,2],[0,3]];
+			case 2: //Tetromino I (light blue)
+				int[][] tab2 = {{0,0},{0,1},{0,2},{0,3}};
+				tabTiles = tab2; 
 				break;
 
-			case 2: //Tetromino L (orange)
-				tabTiles = [[0,0],[0,1],[0,2],[1,2]]; 
+			case 3: //Tetromino L (orange)
+				int[][] tab3 = {{0,0},{0,1},{0,2},{1,2}};
+				tabTiles = tab3;  
 				break;
 
-			case 3: //Tetromino J (dark blue)
-				tabTiles = [[0,0],[0,1],[0,2],[-1,2]]; 
+			case 4: //Tetromino J (dark blue)
+				int[][] tab4 = {{0,0},{0,1},{0,2},{-1,2}};
+				tabTiles = tab4;  
 				break;
 
-			case 4: //Tetromino T (purple)
-				tabTiles = [[0,0],[1,0],[2,0],[1,1]]; 
+			case 5: //Tetromino T (purple)
+				int[][] tab5 = {{0,0},{1,0},{2,0},{1,1}}; 
+				tabTiles = tab5; 
 				break;	
 
-			case 5: //Tetromino S (red)
-				tabTiles = [[0,0],[1,0],[0,1],[-1,1]]; 
+			case 6: //Tetromino S (red)
+				int[][] tab6 = {{0,0},{1,0},{0,1},{-1,1}}; 
+				tabTiles = tab6; 
 				break;
 
-			case 6: //Tetromino Z (green)
-				tabTiles = [[0,0],[1,0],[1,1],[2,1]]; 
+			case 7: //Tetromino Z (green)
+				int[][] tab7 = {{0,0},{1,0},{1,1},{2,1}}; 
+				tabTiles = tab7; 
 				break;
 
 		}
 
 	}
 
-	public int getRow(){
+	public int getRow0(){
 
-		return row;
+		return row0;
 
 	}
 
-	public int getColumn(){
+	public int getColumn0(){
 
-		return column;
+		return column0;
 		
 	}
 
@@ -65,35 +73,61 @@ public class Tetromino{
 		return colour;
 
 	}
-
-	public int getTab(){
-
-		return colour;
-
-	}
 	
-	public void moveLeft(){
+	public boolean moveLeft(Plateau gameboard){
 
 		if (column0 > 0) {
+
+			for (int i=0; i<4; i++){
+				if (gameboard.getTab()[column0 - 1 + tabTiles[i][0]][row0 + tabTiles[i][1]] != 0){
+					return false;
+				}
+			}
+
 			column0 -= 1;
+			return true;
 		}
+
+		return false;
 
 	}
 
-	public void moveRight(int nbcolumns){
+	public boolean moveRight(Plateau gameboard){
 
-		if (column0 < nbcolumns) {
+		if (column0 < gameboard.getNbC()) {
+
+			for (int i=0; i<4; i++){
+				if (gameboard.getTab()[column0 + 1 + tabTiles[i][0]][row0 + tabTiles[i][1]] != 0){
+					return false;
+				}
+			}
+
 			column0 += 1;
+			return true;
 		}
+
+		return false;
 
 	}	
 
+
 	public void hardDrop(KeyEvent event){
 		if (event.getKeyChar() == VK_SPACE){
-		
 		}
-			
-	
 	}
 
+	public void rotateRight(Plateau gameboard){
+
+
+	}
+
+	public void rotateLeft(Plateau gameboard){
+
+		
+	}
+
+		
+	
 }
+
+

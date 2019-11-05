@@ -1,5 +1,3 @@
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 public class Score{
 	private int score;
 	public Score(){
@@ -12,6 +10,7 @@ public class Score{
 			n=50;
 			/*if ( tetromino.hardDrop()){
 				n=100;
+				pour le harddrop on rajoute un autre boolean en arguments qui fait genre si la dernière touche c'est un space donc le hardrop est vrai et du coup n vaudrait 100
 			}*/
 			if (nblignesdisparues >1){
 				bonus+=100*nblignesdisparues;
@@ -25,10 +24,6 @@ public class Score{
 	public int getScore(){
 		return score;
 	}
-	public void keyTyped(KeyEvent event) {
-			if (event.getKeyChar() == VK_SPACE){
-				System.out.println("bravo");
-			}
-	}
+	
 	
 }			

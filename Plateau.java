@@ -1,12 +1,12 @@
 public class Plateau{
 
-	public static final Plateau PLATEAU = new Plateau(int nbRows, int nbColumns);
+	// public static final Plateau PLATEAU = new Plateau(int nbRows, int nbColumns); Comment limiter le nombre de plateau créé ?
 
 	private int nbRows;
 	private int nbColumns;
 	private int[][] tab;
 
-	public Plateau(int nbRows, int nbColumns){
+	public Plateau(int nbRows, int nbColumns){ 
 
 		this.nbRows = nbRows;
 		this.nbColumns = nbColumns;
@@ -35,10 +35,16 @@ public class Plateau{
 		
 	}
 
-	public int getTab(){
+	public int[][] getTab(){
 
 		return tab;
 		
+	}
+
+	public void newTetromino(){
+
+
+
 	}
 	
 }
