@@ -15,31 +15,39 @@ public class Tetromino{
 		switch (colour) {
 
 			case 0: //Tetromino O (yellow)
-				tabTiles = [[0,0],[0,1],[1,0],[1,1]]; 
+
+				int[][] tab0 = {{0,0},{0,1},{1,0},{1,1}};
+				tabTiles = tab0; 
 				break;
 
 			case 1: //Tetromino I (light blue)
-				tabTiles = [[0,0],[0,1],[0,2],[0,3]];
+				int[][] tab1 = {{0,0},{0,1},{0,2},{0,3}};
+				tabTiles = tab1; 
 				break;
 
 			case 2: //Tetromino L (orange)
-				tabTiles = [[0,0],[0,1],[0,2],[1,2]]; 
+				int[][] tab2 = {{0,0},{0,1},{0,2},{1,2}};
+				tabTiles = tab2;  
 				break;
 
 			case 3: //Tetromino J (dark blue)
-				tabTiles = [[0,0],[0,1],[0,2],[-1,2]]; 
+				int[][] tab3 = {{0,0},{0,1},{0,2},{-1,2}};
+				tabTiles = tab3;  
 				break;
 
 			case 4: //Tetromino T (purple)
-				tabTiles = [[0,0],[1,0],[2,0],[1,1]]; 
+				int[][] tab4 = {{0,0},{1,0},{2,0},{1,1}}; 
+				tabTiles = tab4; 
 				break;	
 
 			case 5: //Tetromino S (red)
-				tabTiles = [[0,0],[1,0],[0,1],[-1,1]]; 
+				int[][] tab5 = {{0,0},{1,0},{0,1},{-1,1}}; 
+				tabTiles = tab5; 
 				break;
 
 			case 6: //Tetromino Z (green)
-				tabTiles = [[0,0],[1,0],[1,1],[2,1]]; 
+				int[][] tab6 = {{0,0},{1,0},{1,1},{2,1}}; 
+				tabTiles = tab6; 
 				break;
 
 		}
