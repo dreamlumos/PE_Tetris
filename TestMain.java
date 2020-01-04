@@ -1,23 +1,28 @@
+import java.util.Scanner;
+import java.awt.*;
+import javax.swing.*;
 
 public class TestMain{
 
-	public static void main(String [] args){
+	public static void main(String[] args){
 
-		/*JFrame window = new JFrame();
+        Gameboard gameboard = new Gameboard(20,8,30);
+        LeftSidebar lsb = new LeftSidebar(gameboard);
+        RightSidebar rsb = new RightSidebar(gameboard);
 
-		window.setTitle("Tetris");
+    	Window window = new Window(gameboard, lsb, rsb);
 
-		window.setSize(400,800);
+        while(!gameboard.getEndofgame()){
+            window.repaint();
 
-		window.setLocationRelativeTo(null);
+            try{
+                Thread.sleep(100);
+            } catch (Exception e){
+                System.out.println(e);
+            }
 
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		window.setVisible(true);*/
-
-		Window w = new Window();
-
-
+            gameboard.getTetromino().softDrop();
+            
+        }
 	}
-
 }

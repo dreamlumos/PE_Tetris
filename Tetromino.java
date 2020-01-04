@@ -1,134 +1,146 @@
+import java.awt.Color;
 
 public class Tetromino{
 
+	private int column0; //colonne de la case [0,0]
 	private int row0; //ligne de la case [0,0]
-	private int column0;
 	private int[][] tabTiles;
-	private int colour;
+	private Color colour;
+	private Gameboard gameboard;
 
-	public Tetromino(int colour, Plateau gameboard){
+	public static final Color EMPTY = new Color(0, 0, 0);
 
+	public Tetromino(int type, Gameboard gameboard){
+
+		this.gameboard = gameboard;
+
+		column0 = (gameboard.getNbColumns() / 2) - 1;
 		row0 = 0;
-		column0 = gameboard.getNbC() / 2;
 
-		this.colour = colour;
-
-		switch (colour) {
+		switch (type) {
 
 			case 1: //Tetromino O (yellow)
-
-				int[][] tab1 = {{0,0},{0,1},{1,0},{1,1}};
-				tabTiles = tab1; 
+				tabTiles = new int[][]{{0,0},{0,1},{1,0},{1,1}};
+				colour = new Color(255, 230, 0);
 				break;
 
 			case 2: //Tetromino I (light blue)
-				int[][] tab2 = {{0,0},{0,1},{0,2},{0,3}};
-				tabTiles = tab2; 
+				tabTiles = new int[][]{{0,0},{0,1},{0,2},{0,3}};
+				colour = new Color(0, 247, 255);
 				break;
 
 			case 3: //Tetromino L (orange)
-				int[][] tab3 = {{0,0},{0,1},{0,2},{1,2}};
-				tabTiles = tab3;  
+				tabTiles = new int[][]{{0,0},{0,1},{0,2},{1,2}};
+				colour = new Color(255, 157, 0); 
 				break;
 
 			case 4: //Tetromino J (dark blue)
-				int[][] tab4 = {{0,0},{0,1},{0,2},{-1,2}};
-				tabTiles = tab4;  
+				tabTiles = new int[][]{{0,0},{0,1},{0,2},{-1,2}};
+				colour = new Color(0, 106, 255);
 				break;
 
 			case 5: //Tetromino T (purple)
-				int[][] tab5 = {{0,0},{1,0},{2,0},{1,1}}; 
-				tabTiles = tab5; 
+				tabTiles = new int[][]{{0,0},{1,0},{2,0},{1,1}};
+				colour = new Color(109, 50, 168); 
 				break;	
 
 			case 6: //Tetromino S (red)
-				int[][] tab6 = {{0,0},{1,0},{0,1},{-1,1}}; 
-				tabTiles = tab6; 
+				tabTiles = new int[][]{{0,0},{1,0},{0,1},{-1,1}};
+				colour = new Color(255, 0, 0);
 				break;
 
-			case 7: //Tetromino Z (green)
-				int[][] tab7 = {{0,0},{1,0},{1,1},{2,1}}; 
-				tabTiles = tab7; 
+			case 7: //Tetromino Z (green) 
+				tabTiles = new int[][]{{0,0},{1,0},{1,1},{2,1}};
+				colour = new Color(141, 230, 53);
 				break;
 
 		}
-
-	}
-
-	public int getRow0(){
-
-		return row0;
 
 	}
 
 	public int getColumn0(){
-
 		return column0;
-		
 	}
 
-	public int getColour(){
+	public int getRow0(){
+		return row0;
+	}
 
+	public int[][] getTabTiles(){
+		return tabTiles;
+	}
+
+	public Color getColour(){
 		return colour;
-
 	}
-	
-	public boolean moveLeft(Plateau gameboard){
 
-		if (column0 > 0) {
+	public boolean moveLeft(){
 
-			for (int i=0; i<4; i++){
-				if (gameboard.getTab()[column0 - 1 + tabTiles[i][0]][row0 + tabTiles[i][1]] != 0){
-					return false;
-				}
+		for (int tile=0; tile < tabTiles.length; tile++){
+
+			int i = column0 - 1 + tabTiles[tile][0];
+			int j = row0 + tabTiles[tile][1];
+
+			if (i < 0 || !(gameboard.getTab()[i][j].equals(EMPTY))){
+				return false;
 			}
-
-			column0 -= 1;
-			return true;
 		}
 
-		return false;
+		column0 -= 1;
+		return true;
 
 	}
 
-	public boolean moveRight(Plateau gameboard){
+	public boolean moveRight(){
 
-		if (column0 < gameboard.getNbC()) {
+		for (int tile=0; tile < tabTiles.length; tile++){
 
-			for (int i=0; i<4; i++){
-				if (gameboard.getTab()[column0 + 1 + tabTiles[i][0]][row0 + tabTiles[i][1]] != 0){
-					return false;
-				}
+			int i = column0 + 1 + tabTiles[tile][0];
+			int j = row0 + tabTiles[tile][1];
+
+			if (i > gameboard.getNbColumns()-1 || !(gameboard.getTab()[i][j].equals(EMPTY))){
+				return false;
 			}
-
-			column0 += 1;
-			return true;
 		}
 
-		return false;
+		column0 += 1;
+		return true;
 
 	}	
 
+	public boolean softDrop(){
 
-	public boolean hardDrop(boolean space){
-		if (space == true){
-			// tetromino move
-			return true ;
+		for (int tile=0; tile < tabTiles.length; tile++){  
+
+			int i = column0 + tabTiles[tile][0];
+			int j = row0 + 1 + tabTiles[tile][1];
+
+			if (j > gameboard.getNbRows()-1 || !(gameboard.getTab()[i][j].equals(EMPTY))){
+				gameboard.newTetromino();
+				return false;
+			}
 		}
-		return false;
-	}
 
-	public void rotateRight(Plateau gameboard){
-
-
-	}
-
-	public void rotateLeft(Plateau gameboard){
-
+		row0 += 1;
+		return true;
 		
 	}
 
+	public void hardDrop(){
 		
+		while(softDrop());
+
+	}
+
+	public void rotateRight(){
+
+
+	}
+
+	public void rotateLeft(){
+
+		
+	}
 	
 }
 
