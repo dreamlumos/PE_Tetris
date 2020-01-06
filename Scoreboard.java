@@ -6,6 +6,7 @@ public class Scoreboard extends JLabel{
 	int score;
 	int level;
 	int lines;
+	int bonus;
 
 	public Scoreboard(){
 
@@ -15,9 +16,16 @@ public class Scoreboard extends JLabel{
 		score = 0;
 		level = 1;
 		lines = 0;
+		bonus =20;
 
-		super.setText("SCORE\n"+score+"\n\nLEVEL\n"+level+"\n\nLINES CLEARED\n"+lines);
-
+	}
+	public void Score(Gameboard gameboard){
+		score++;
+		lines=gameboard.rowDisappeared();
+		if (gameboard.rowDisappeared() >=2){
+			bonus*=2;
+		}
+		score=score+bonus*gameboard.rowDisappeared();
 	}
 	public int getScore(){
 		return score;
@@ -34,6 +42,7 @@ public class Scoreboard extends JLabel{
 	public void paintComponent(Graphics g){
 
 		super.paintComponent(g);
+
 
 	}
 
