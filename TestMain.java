@@ -24,7 +24,6 @@ public class TestMain{
     		} catch (Exception e){
     			System.out.println(e);
     		}
-
     		gameboard.getTetromino().softDrop();
                 
             }

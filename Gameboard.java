@@ -166,8 +166,10 @@ public class Gameboard extends JPanel{
 
 		}
 	}
-	public void rowDisappeared(){
 
+/*	public int rowDisappeared(){
+
+		int cpt = 0;
 		int column = 0; //Column number
 
 		for (int row=0; row<nbRows; row++){ //checks the board's rows from top to bottom
@@ -176,18 +178,64 @@ public class Gameboard extends JPanel{
 				column++;
 			}
 
-			if (column == nbColumns-1){
+			if (column == nbColumns-1){ //if row is full
 				for (int j=row; j>0; j--){ //moves the rows down from bottom to top
 					for (int i=0; i<nbColumns; i++){
 						tab[i][j] = tab[i][j-1];
 					}
 				}
+				cpt++;
 			}
 
 			column = 0;
 			
 		}
+		
+		return cpt;
+	}*/
+
+	public int rowDisappeared(){
+		int row=nbRows-1;
+		int col;
+		boolean complete;
+		int cpt=0;
+
+		while (row >= 0) {
+			/* On verifie si la ligne est pleine */
+			complete=true;
+			col=0;
+
+			while (complete && col < nbColumns) {
+				if (tab[col][row] == Tetromino.EMPTY) {
+					complete=false;
+				}
+				col=col+1;
+			}
+
+			/* on decale vers le bas */
+			if (complete) {
+				cpt++;
+				
+				if (row > 0) {
+					for (int row2=row; row2 > 0; row2--) {
+						for (int col2=0; col2 < nbColumns; col2++) {
+							tab[col2][row2]=tab[col2][row2-1];
+						}
+					}
+				}
+				/* on vide la ligne tout en haut */
+				for (int col2=0; col2 < nbColumns; col2++) {
+					tab[col2][0]=Tetromino.EMPTY;
+				}
+				
+			} else {
+				row = row-1;
+
+			}
+
+		}
+
+		return cpt;
 
 	}
-	
 }
