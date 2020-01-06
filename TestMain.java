@@ -15,7 +15,7 @@ public class TestMain{
 
     	Window window = new Window(gameboard, lsb, rsb);
 
-    	while(!gameboard.getEndofgame()){
+    	while(!gameboard.getEndOfGame()){
 
       		window.repaint();
             
@@ -26,6 +26,7 @@ public class TestMain{
     		}
     		gameboard.getTetromino().softDrop();
                 
-            }
+        }
+
 	}
 }
