@@ -56,7 +56,8 @@ public class Gameboard extends JPanel{
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "rotateRight");
 		am.put("rotateRight", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				tetromino.rotateRight();
+				if(tetromino.getType()!=1)
+					tetromino.rotateRight();
 			}
 		});
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "softDrop");
@@ -167,5 +168,49 @@ public class Gameboard extends JPanel{
 		}
 	}
 	
-	
+	public int rowDisappeared(){
+		int row=nbRows-1;
+		int col;
+		boolean complete;
+		int cpt=0;
+
+		while (row >= 0) {
+			/* On verifie si la ligne est pleine */
+			complete=true;
+			col=0;
+
+			while (complete && col < nbColumns) {
+				if (tab[col][row] == Tetromino.EMPTY) {
+					complete=false;
+				}
+				col=col+1;
+			}
+
+			/* on decale vers le bas */
+			if (complete) {
+				cpt++;
+				
+				if (row > 0) {
+					for (int row2=row; row2 > 0; row2--) {
+						for (int col2=0; col2 < nbColumns; col2++) {
+							tab[col2][row2]=tab[col2][row2-1];
+						}
+					}
+				}
+				/* on vide la ligne tout en haut */
+				for (int col2=0; col2 < nbColumns; col2++) {
+					tab[col2][0]=Tetromino.EMPTY;
+				}
+				
+			} else {
+				row = row-1;
+
+			}
+
+		}
+
+		return cpt;
+
+	}
+>>>>>>> 8c49ebac41e4629b2dee56f4097290629b5d5990
 }
