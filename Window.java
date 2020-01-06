@@ -33,7 +33,6 @@ public class Window extends JFrame{
 		gbc.gridx = 2;
 		gbc.gridy = 0;
 		add(rsb, gbc);
-
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);

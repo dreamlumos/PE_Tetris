@@ -19,7 +19,6 @@ public class Scoreboard extends JLabel{
 		super.setText("SCORE\n"+score+"\n\nLEVEL\n"+level+"\n\nLINES CLEARED\n"+lines);
 
 	}
-
 	public int getScore(){
 		return score;
 	}

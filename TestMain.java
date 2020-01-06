@@ -16,7 +16,7 @@ public class TestMain{
             window.repaint();
 
             try{
-                Thread.sleep(100);
+                Thread.sleep(500);
             } catch (Exception e){
                 System.out.println(e);
             }
