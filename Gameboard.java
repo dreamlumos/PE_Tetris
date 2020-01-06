@@ -56,7 +56,8 @@ public class Gameboard extends JPanel{
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "rotateRight");
 		am.put("rotateRight", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				tetromino.rotateRight();
+				if(tetromino.getType()!=1)
+					tetromino.rotateRight();
 			}
 		});
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "softDrop");

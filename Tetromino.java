@@ -7,12 +7,14 @@ public class Tetromino{
 	private int[][] tabTiles;
 	private Color colour;
 	private Gameboard gameboard;
+	private int type;
 
 	public static final Color EMPTY = new Color(0, 0, 0);
 
 	public Tetromino(int type, Gameboard gameboard){
 
 		this.gameboard = gameboard;
+		this.type=type;
 
 		column0 = (gameboard.getNbColumns() / 2) - 1;
 		row0 = 0;
@@ -40,7 +42,7 @@ public class Tetromino{
 				break;
 
 			case 5: //Tetromino T (purple)
-				tabTiles = new int[][]{{0,0},{1,0},{2,0},{1,1}};
+				tabTiles = new int[][]{{0,0},{1,0},{-1,0},{0,1}};
 				colour = new Color(109, 50, 168); 
 				break;	
 
@@ -61,6 +63,10 @@ public class Tetromino{
 			/*rotateRight();*/
 		}
 
+	}
+
+	public int getType(){
+		return type;
 	}
 
 	public int getColumn0(){
