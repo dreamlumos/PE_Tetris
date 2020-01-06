@@ -8,10 +8,6 @@ public class TestMain{
 
 	public static void main(String[] args){
 
-	Gameboard gameboard = new Gameboard(20,8,30);
-	LeftSidebar lsb = new LeftSidebar(gameboard);
-	RightSidebar rsb = new RightSidebar(gameboard);
-
         HoldQueue holdQueue = new HoldQueue(TILE_SIZE);
         Gameboard gameboard = new Gameboard(20, 8, TILE_SIZE, holdQueue);
         LeftSidebar lsb = new LeftSidebar(gameboard, holdQueue);
@@ -30,5 +26,5 @@ public class TestMain{
 		gameboard.getTetromino().softDrop();
             
         }
-	}
+	
 }
