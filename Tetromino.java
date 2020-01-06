@@ -126,9 +126,8 @@ public class Tetromino{
 			int j = row0 + 1 + tabTiles[tile][1];
 
 			if (j > gameboard.getNbRows()-1 || !(gameboard.getTab()[i][j].equals(EMPTY))){
-				
 				gameboard.newTetromino();
-				gameboard.RowDisappeared();
+				
 				return false;
 			}
 		}
