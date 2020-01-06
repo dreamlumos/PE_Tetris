@@ -4,14 +4,14 @@ import javax.swing.*;
 
 public class LeftSidebar extends JPanel{
 	
-	private Hold hold;
+	private HoldQueue holdQueue;
 	private Scoreboard scoreboard;
 
-	public LeftSidebar(Gameboard gameboard){
+	public LeftSidebar(Gameboard gameboard, HoldQueue holdQueue){
 
 		super();
 
-		hold = new Hold(gameboard);
+		this.holdQueue = holdQueue;
 		scoreboard = new Scoreboard();
 
 		setPreferredSize(new Dimension(6*gameboard.getTileSize(), 12*gameboard.getTileSize()));
@@ -19,10 +19,18 @@ public class LeftSidebar extends JPanel{
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS)); //vertical axis
 		setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 0));
 
-		add(hold);
+		add(holdQueue);
 		add(Box.createRigidArea(new Dimension(0,10))); //rigid area: invisible component used to add space between components
 		add(scoreboard);
 
+	}
+
+	public HoldQueue getHoldQueue(){
+		return holdQueue;
+	}
+
+	public Scoreboard getScoreboard(){
+		return scoreboard;
 	}
 
 	public void paintComponent(Graphics g){

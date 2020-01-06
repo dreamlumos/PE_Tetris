@@ -18,6 +18,7 @@ public class Window extends JFrame{
 		this.lsb = lsb;
 		this.rsb = rsb;
 
+		/* JFrame preferences */
 		setTitle("Tetris");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
