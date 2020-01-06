@@ -166,31 +166,28 @@ public class Gameboard extends JPanel{
 
 		}
 	}
-	public  boolean RowDisappeared(){
-		int cpt=0;
-		for (int i=0 ; i<nbRows;i++){
-			for(int j=0 ;j<nbColumns;j++){
-				if (tab[i][j] != Tetromino.EMPTY){
-					if (j==0) {
-						cpt=0;
-					}
-					cpt++;
-				}
-				if (cpt==nbColumns){
-					for (int k=i;k<nbRows;k++){
-						
-						for (j=0;j<nbColumns;j++){
-							tab[k][j]= tab[k+1][j];
-						}	
-					}
-					
-				return true;
-				}
-				
+	public void rowDisappeared(){
+
+		int column = 0; //Column number
+
+		for (int row=0; row<nbRows; row++){ //checks the board's rows from top to bottom
+
+			while (tab[column][row] != Tetromino.EMPTY && column < nbColumns-1){
+				column++;
 			}
+
+			if (column == nbColumns-1){
+				for (int j=row; j>0; j--){ //moves the rows down from bottom to top
+					for (int i=0; i<nbColumns; i++){
+						tab[i][j] = tab[i][j-1];
+					}
+				}
+			}
+
+			column = 0;
+			
 		}
-		return false ;
-		
+
 	}
 	
 }

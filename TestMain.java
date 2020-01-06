@@ -14,8 +14,11 @@ public class TestMain{
         RightSidebar rsb = new RightSidebar(gameboard);
 
     	Window window = new Window(gameboard, lsb, rsb);
+
     	while(!gameboard.getEndofgame()){
+
       		window.repaint();
+            
     		try{
     			Thread.sleep(200);
     		} catch (Exception e){
