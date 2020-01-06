@@ -14,7 +14,7 @@ public class TestMain{
         RightSidebar rsb = new RightSidebar(gameboard);
 
     	Window window = new Window(gameboard, lsb, rsb);
-		Scoreboard scoreboard = new Scoreboard();
+		/*Scoreboard scoreboard = new Scoreboard();*/
 		
     	while(!gameboard.getEndofgame()){
 
@@ -27,6 +27,7 @@ public class TestMain{
     		}
     		gameboard.getTetromino().softDrop();
                 
-            }
+        }
+
 	}
 }

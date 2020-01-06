@@ -9,9 +9,10 @@ public class HoldQueue extends JPanel{
 	public HoldQueue(int tileSize){
 
 		this.tileSize = tileSize;
-
-		setPreferredSize(new Dimension(12*tileSize, 12*tileSize));
 		onHold = null;
+		
+		setPreferredSize(new Dimension(12*tileSize, 12*tileSize));
+
 	}
 
 	public Tetromino getOnHold(){

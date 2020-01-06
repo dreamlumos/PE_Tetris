@@ -132,7 +132,7 @@ public class Gameboard extends JPanel{
 	}
 		
 
-	public boolean getEndofgame(){
+	public boolean getEndOfGame(){
 		return endOfGame;
 	}
 
