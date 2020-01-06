@@ -6,22 +6,20 @@ public class TestMain{
 
 	public static void main(String[] args){
 
-        Gameboard gameboard = new Gameboard(20,8,30);
-        LeftSidebar lsb = new LeftSidebar(gameboard);
-        RightSidebar rsb = new RightSidebar(gameboard);
+	Gameboard gameboard = new Gameboard(20,8,30);
+	LeftSidebar lsb = new LeftSidebar(gameboard);
+	RightSidebar rsb = new RightSidebar(gameboard);
 
-    	Window window = new Window(gameboard, lsb, rsb);
+	Window window = new Window(gameboard, lsb, rsb);
+	while(!gameboard.getEndofgame()){
+  		window.repaint();
+		try{
+			Thread.sleep(200);
+		} catch (Exception e){
+			System.out.println(e);
+		}
 
-        while(!gameboard.getEndofgame()){
-            window.repaint();
-
-            try{
-                Thread.sleep(100);
-            } catch (Exception e){
-                System.out.println(e);
-            }
-
-            gameboard.getTetromino().softDrop();
+		gameboard.getTetromino().softDrop();
             
         }
 	}

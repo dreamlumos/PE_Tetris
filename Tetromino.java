@@ -133,12 +133,69 @@ public class Tetromino{
 	}
 
 	public void rotateRight(){
-
+		int bloque=0;
+		int tmp;
+		int i = 0,ligne_deb,colonne_deb;
+		while (bloque==0 && i < 4) {
+			ligne_deb=row0+tabTiles[i][0];
+			colonne_deb=column0-tabTiles[i][1];
+			/* la rotation fait sortir la piece du plateau par le haut ou le bas */
+			if (ligne_deb < 0 || ligne_deb >= gameboard.getNbRows()) {
+				bloque=1;
+			} else {
+			/* la rotation fait sortir la piece du plateau par un des cotes */
+				if (colonne_deb >= gameboard.getNbColumns() || colonne_deb < 0) {
+					bloque=1;
+				} else {
+				/* la rotation met la piece sur une case occupee */
+					if (gameboard.getTab()[colonne_deb][ligne_deb] != EMPTY) {
+						bloque=1;
+					}
+				}
+			}
+			i=i+1;
+		}
+		if (bloque==0) {
+			for (i=0; i < 4; i++) {
+				tmp=tabTiles[i][0];
+				tabTiles[i][0] = -tabTiles[i][1];
+				tabTiles[i][1] = tmp;
+			
+			}
+		}
 
 	}
 
 	public void rotateLeft(){
-
+		int bloque=0;
+		int tmp;
+		int i = 0,ligne_deb,colonne_deb;
+		while (bloque==0 && i < 4) {
+			ligne_deb=row0-tabTiles[i][0];
+			colonne_deb=column0+tabTiles[i][1];
+			/* la rotation fait sortir la piece du plateau par le haut ou le bas */
+			if (ligne_deb < 0 || ligne_deb >= gameboard.getNbRows()) {
+				bloque=1;
+			} else {
+			/* la rotation fait sortir la piece du plateau par un des cotes */
+				if (colonne_deb >= gameboard.getNbColumns() || colonne_deb < 0) {
+					bloque=1;
+				} else {
+				/* la rotation met la piece sur une case occupee */
+					if (gameboard.getTab()[colonne_deb][ligne_deb] != EMPTY) {
+						bloque=1;
+					}
+				}
+			}
+			i=i+1;
+		}
+		if (bloque==0) {
+			for (i=0; i < 4; i++) {
+				tmp=tabTiles[i][0];
+				tabTiles[i][0] = tabTiles[i][1];
+				tabTiles[i][1] = -tmp;
+			}
+		}
 		
 	}
 	
