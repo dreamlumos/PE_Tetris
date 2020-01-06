@@ -11,9 +11,10 @@ public class Gameboard extends JPanel{
 	private int tileSize;
 	private Color[][] tab;
 	private Tetromino tetromino;
-	private boolean endofgame;
+	private HoldQueue holdQueue;
+	private boolean endOfGame;
 
-	public Gameboard(int nbRows, int nbColumns, int tileSize){ 
+	public Gameboard(int nbRows, int nbColumns, int tileSize, HoldQueue holdQueue){ 
 
 		super();
 
@@ -25,7 +26,8 @@ public class Gameboard extends JPanel{
 		this.nbColumns = nbColumns;
 		this.nbRows = nbRows;
 		this.tileSize = tileSize;
-		endofgame = false;
+		this.holdQueue = holdQueue;
+		endOfGame = false;
 		tetromino = randomTetromino();
 
 		tab = new Color[nbColumns][nbRows];
@@ -67,6 +69,12 @@ public class Gameboard extends JPanel{
 		am.put("hardDrop", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
 				tetromino.hardDrop();
+			}
+		});
+		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_C, 0), "putOnHold");
+		am.put("putOnHold", new AbstractAction(){
+			public void actionPerformed(ActionEvent e){
+				tetromino = holdQueue.setOnHold(tetromino, Gameboard.this);
 			}
 		});
 
@@ -124,11 +132,11 @@ public class Gameboard extends JPanel{
 		
 
 	public boolean getEndofgame(){
-		return endofgame;
+		return endOfGame;
 	}
 
 	public void endOfGame(){
-		endofgame = true;
+		endOfGame = true;
 	}
 
 	public void paintComponent(Graphics g){

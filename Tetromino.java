@@ -56,6 +56,11 @@ public class Tetromino{
 
 		}
 
+		int nbRotations = (int) (Math.random()*4);
+		for (int i = 0; i < nbRotations; i++){
+			rotateRight();
+		}
+
 	}
 
 	public int getColumn0(){
@@ -72,6 +77,11 @@ public class Tetromino{
 
 	public Color getColour(){
 		return colour;
+	}
+
+	public void putOnHold(){
+		column0 = (gameboard.getNbColumns() / 2) - 1;
+		row0 = 0;
 	}
 
 	public boolean moveLeft(){
