@@ -12,19 +12,17 @@ public class TestMain{
         Gameboard gameboard = new Gameboard(20, 8, TILE_SIZE, holdQueue);
         LeftSidebar lsb = new LeftSidebar(gameboard, holdQueue);
         RightSidebar rsb = new RightSidebar(gameboard);
-    }
 
-	Window window = new Window(gameboard, lsb, rsb);
-	while(!gameboard.getEndofgame()){
-  		window.repaint();
-		try{
-			Thread.sleep(200);
-		} catch (Exception e){
-			System.out.println(e);
-		}
-
-		gameboard.getTetromino().softDrop();
-            
-        }
-	
+    	Window window = new Window(gameboard, lsb, rsb);
+    	while(!gameboard.getEndofgame()){
+      		window.repaint();
+    		try{
+    			Thread.sleep(200);
+    		} catch (Exception e){
+    			System.out.println(e);
+    		}
+    		gameboard.getTetromino().softDrop();
+                
+            }
+	}
 }

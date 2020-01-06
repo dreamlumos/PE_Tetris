@@ -58,7 +58,7 @@ public class Tetromino{
 
 		int nbRotations = (int) (Math.random()*4);
 		for (int i = 0; i < nbRotations; i++){
-			rotateRight();
+			/*rotateRight();*/
 		}
 
 	}
