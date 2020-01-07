@@ -23,7 +23,7 @@ public class Scoreboard extends JLabel{
 	}
 
 	public void calculateScore(Gameboard gameboard){
-		
+		score++;
 		int newLines = gameboard.lineClear();
 
 		lines += newLines;
@@ -33,6 +33,12 @@ public class Scoreboard extends JLabel{
 		}
 
 		score = score+bonus*newLines;
+	}
+	public void calculateLevel(){
+		if (score>200){
+			level++;
+			score=0;
+		}
 	}
 
 	public int getScore(){
