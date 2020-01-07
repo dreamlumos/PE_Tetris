@@ -35,9 +35,9 @@ public class Scoreboard extends JLabel{
 		score = score+bonus*newLines;
 	}
 	public void calculateLevel(){
-		if (score>200){
+		if (lines>10){
 			level++;
-			score=0;
+			lines=0;
 		}
 	}
 
