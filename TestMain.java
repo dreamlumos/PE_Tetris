@@ -8,24 +8,23 @@ public class TestMain{
 
 	public static void main(String[] args){
 
-        HoldQueue holdQueue = new HoldQueue(TILE_SIZE);
-        Gameboard gameboard = new Gameboard(20, 8, TILE_SIZE, holdQueue);
-        LeftSidebar lsb = new LeftSidebar(gameboard, holdQueue);
+        Gameboard gameboard = new Gameboard(20, 10, TILE_SIZE);
+        LeftSidebar lsb = new LeftSidebar(gameboard);
         RightSidebar rsb = new RightSidebar(gameboard);
+        gameboard.bindKeys(lsb, rsb);
 
     	Window window = new Window(gameboard, lsb, rsb);
-		/*Scoreboard scoreboard = new Scoreboard();*/
 		
     	while(!gameboard.getEndOfGame()){
 
       		window.repaint();
-            /*scoreboard.Score(gameboard);*/
+
     		try{
     			Thread.sleep(200);
     		} catch (Exception e){
     			System.out.println(e);
     		}
-    		gameboard.getTetromino().softDrop();
+    		gameboard.getTetromino().softDrop(lsb, rsb);
                 
         }
 

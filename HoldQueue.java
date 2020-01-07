@@ -10,8 +10,8 @@ public class HoldQueue extends JPanel{
 
 		this.tileSize = tileSize;
 		onHold = null;
-		
-		setPreferredSize(new Dimension(12*tileSize, 12*tileSize));
+
+		setPreferredSize(new Dimension(10*tileSize, 12*tileSize));
 
 	}
 
@@ -19,11 +19,11 @@ public class HoldQueue extends JPanel{
 		return onHold;
 	}
 
-	public Tetromino setOnHold(Tetromino tetromino, Gameboard gameboard){
+	public Tetromino setOnHold(Gameboard gameboard){
 		
-		tetromino.putOnHold();
+		gameboard.getTetromino().putOnHold();
 		Tetromino temp = onHold;
-		onHold = tetromino;
+		onHold = gameboard.getTetromino();
 
 		if(temp == null){
 			return gameboard.randomTetromino();
@@ -36,12 +36,14 @@ public class HoldQueue extends JPanel{
 
 		super.paintComponent(g);
 		setBackground(new Color(0, 0, 0));
+		g.setColor(new Color(255, 255, 255));
+		g.drawString("HOLD", 10, 10);
 
 		if (onHold != null){
 
 			for (int tile = 0; tile < onHold.getTabTiles().length; tile++){
 				
-				int i = 1+onHold.getTabTiles()[tile][0];
+				int i = 3+onHold.getTabTiles()[tile][0];
 				int j = 1+onHold.getTabTiles()[tile][1];
 
 				g.setColor(onHold.getColour());

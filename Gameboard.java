@@ -11,10 +11,9 @@ public class Gameboard extends JPanel{
 	private int tileSize;
 	private Color[][] tab;
 	private Tetromino tetromino;
-	private HoldQueue holdQueue;
 	private boolean endOfGame;
 
-	public Gameboard(int nbRows, int nbColumns, int tileSize, HoldQueue holdQueue){ 
+	public Gameboard(int nbRows, int nbColumns, int tileSize){ 
 
 		super();
 
@@ -26,7 +25,6 @@ public class Gameboard extends JPanel{
 		this.nbColumns = nbColumns;
 		this.nbRows = nbRows;
 		this.tileSize = tileSize;
-		this.holdQueue = holdQueue;
 		endOfGame = false;
 		tetromino = randomTetromino();
 
@@ -37,6 +35,9 @@ public class Gameboard extends JPanel{
 			}
 		}
 
+	}
+
+	public void bindKeys(LeftSidebar lsb, RightSidebar rsb){
 		/* Key bindings */
 		InputMap im = getInputMap();
 		ActionMap am = getActionMap();
@@ -63,22 +64,21 @@ public class Gameboard extends JPanel{
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "softDrop");
 		am.put("softDrop", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				tetromino.softDrop();
+				tetromino.softDrop(lsb, rsb);
 			}
 		});
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "hardDrop");
 		am.put("hardDrop", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				tetromino.hardDrop();
+				tetromino.hardDrop(lsb, rsb);
 			}
 		});
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_C, 0), "putOnHold");
 		am.put("putOnHold", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				tetromino = holdQueue.setOnHold(tetromino, Gameboard.this);
+				tetromino = lsb.getHoldQueue().setOnHold(Gameboard.this);
 			}
 		});
-
 	}
 
 	public int getNbColumns(){
@@ -105,7 +105,7 @@ public class Gameboard extends JPanel{
 		return new Tetromino((int) (Math.random()*7)+1, this);
 	}
 
-	public void newTetromino(){
+	public void newTetromino(NextTetrominos nextTetrominos){
 
 		for (int tile = 0; tile < tetromino.getTabTiles().length; tile++){
 			
@@ -116,7 +116,7 @@ public class Gameboard extends JPanel{
 
 		}
 
-		tetromino = randomTetromino();
+		tetromino = nextTetrominos.getNextTetromino(this);
 
 		for (int tile = 0; tile < tetromino.getTabTiles().length; tile++){
 
@@ -130,7 +130,6 @@ public class Gameboard extends JPanel{
 		}		
 
 	}
-		
 
 	public boolean getEndOfGame(){
 		return endOfGame;
@@ -140,35 +139,7 @@ public class Gameboard extends JPanel{
 		endOfGame = true;
 	}
 
-	public void paintComponent(Graphics g){
-
-		super.paintComponent(g); 
-		setBackground(new Color(0, 0, 0));
-
-		for (int i = 0; i < nbColumns; i++){ //draws the board
-			for (int j = 0; j < nbRows; j++){
-				g.setColor(tab[i][j]);
-				g.fillRect(i*tileSize, j*tileSize, tileSize, tileSize);
-				g.setColor(new Color(255, 255, 255));
-				g.drawRect(i*tileSize, j*tileSize, tileSize, tileSize);
-			}
-		}
-
-		for (int tile = 0; tile < tetromino.getTabTiles().length; tile++){ //draws the current tetromino
-			
-			int i = tetromino.getColumn0() + tetromino.getTabTiles()[tile][0];
-			int j = tetromino.getRow0() + tetromino.getTabTiles()[tile][1];
-
-			g.setColor(tetromino.getColour());
-
-			g.fillRect(i*tileSize, j*tileSize, tileSize, tileSize);
-			g.setColor(new Color(255, 255, 255));
-			g.drawRect(i*tileSize, j*tileSize, tileSize, tileSize);
-
-		}
-	}
-	
-	public int rowDisappeared(){
+	public int lineClear(){
 		int row=nbRows-1;
 		int col;
 		boolean complete;
@@ -212,4 +183,33 @@ public class Gameboard extends JPanel{
 		return cpt;
 
 	}
+
+	public void paintComponent(Graphics g){
+
+		super.paintComponent(g); 
+		setBackground(new Color(0, 0, 0));
+
+		for (int i = 0; i < nbColumns; i++){ //draws the board
+			for (int j = 0; j < nbRows; j++){
+				g.setColor(tab[i][j]);
+				g.fillRect(i*tileSize, j*tileSize, tileSize, tileSize);
+				g.setColor(new Color(255, 255, 255));
+				g.drawRect(i*tileSize, j*tileSize, tileSize, tileSize);
+			}
+		}
+
+		for (int tile = 0; tile < tetromino.getTabTiles().length; tile++){ //draws the current tetromino
+			
+			int i = tetromino.getColumn0() + tetromino.getTabTiles()[tile][0];
+			int j = tetromino.getRow0() + tetromino.getTabTiles()[tile][1];
+
+			g.setColor(tetromino.getColour());
+
+			g.fillRect(i*tileSize, j*tileSize, tileSize, tileSize);
+			g.setColor(new Color(255, 255, 255));
+			g.drawRect(i*tileSize, j*tileSize, tileSize, tileSize);
+
+		}
+	}
+	
 }
