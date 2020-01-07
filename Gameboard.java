@@ -1,4 +1,3 @@
-/* import java.awt.*; */
 import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -15,7 +14,7 @@ public class Gameboard extends JPanel{
 	private boolean endOfGame;
 	private boolean pause;
 
-	public Gameboard(int nbRows, int nbColumns, int tileSize){ 
+	public Gameboard(int nbColumns, int nbRows, int tileSize){ 
 
 		super();
 
@@ -208,7 +207,8 @@ public class Gameboard extends JPanel{
 		super.paintComponent(g); 
 		setBackground(new Color(0, 0, 0));
 
-		for (int i = 0; i < nbColumns; i++){ //draws the board
+		/* Drawing the gameboard */
+		for (int i = 0; i < nbColumns; i++){
 			for (int j = 0; j < nbRows; j++){
 				g.setColor(tab[i][j]);
 				g.fillRect(i*tileSize, j*tileSize, tileSize, tileSize);
@@ -217,7 +217,25 @@ public class Gameboard extends JPanel{
 			}
 		}
 
-		for (int tile = 0; tile < tetromino.getTabTiles().length; tile++){ //draws the current tetromino
+		/* Drawing the ghost piece */
+		Tetromino ghostPiece = tetromino.getGhostPiece();
+
+		if (ghostPiece == null) {
+			return; //Not ideal
+		}
+
+		for (int tile = 0; tile < ghostPiece.getTabTiles().length; tile++){
+			
+			int i = ghostPiece.getColumn0() + ghostPiece.getTabTiles()[tile][0];
+			int j = ghostPiece.getRow0() + ghostPiece.getTabTiles()[tile][1];
+
+			g.setColor(ghostPiece.getColour());
+			g.drawRect(i*tileSize, j*tileSize, tileSize, tileSize);
+
+		}
+
+		/* Drawing the current tetromino */
+		for (int tile = 0; tile < tetromino.getTabTiles().length; tile++){
 			
 			int i = tetromino.getColumn0() + tetromino.getTabTiles()[tile][0];
 			int j = tetromino.getRow0() + tetromino.getTabTiles()[tile][1];
@@ -226,22 +244,6 @@ public class Gameboard extends JPanel{
 
 			g.fillRect(i*tileSize, j*tileSize, tileSize, tileSize);
 			g.setColor(new Color(255, 255, 255));
-			g.drawRect(i*tileSize, j*tileSize, tileSize, tileSize);
-
-		}
-
-		Tetromino ghostPiece = tetromino.getGhostPiece();
-
-		if (ghostPiece == null) {
-			return; //Not ideal
-		}
-
-		for (int tile = 0; tile < ghostPiece.getTabTiles().length; tile++){ //draws the ghost piece
-			
-			int i = ghostPiece.getColumn0() + ghostPiece.getTabTiles()[tile][0];
-			int j = ghostPiece.getRow0() + ghostPiece.getTabTiles()[tile][1];
-
-			g.setColor(ghostPiece.getColour());
 			g.drawRect(i*tileSize, j*tileSize, tileSize, tileSize);
 
 		}

@@ -1,9 +1,8 @@
-import java.awt.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
-/*import javax.swing.*;*/
+import java.awt.GridBagConstraints;
 import javax.swing.JFrame;
 
 public class Window extends JFrame{

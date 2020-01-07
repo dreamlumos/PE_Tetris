@@ -1,9 +1,8 @@
-import java.awt.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import javax.swing.*;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 public class NextTetrominos extends JPanel{
 
