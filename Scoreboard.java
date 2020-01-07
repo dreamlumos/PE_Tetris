@@ -4,7 +4,7 @@ import javax.swing.*;
 public class Scoreboard extends JLabel{
 	
 	int score;
-	int level;
+	int level; //1-20
 	int lines;
 	int bonus;
 
@@ -24,12 +24,15 @@ public class Scoreboard extends JLabel{
 
 	public void calculateScore(Gameboard gameboard){
 
-		score++;
+		score++; //1pt for each softDrop
 		
 		int newLines = gameboard.lineClear();
 
 		lines += newLines;
-		level = lines/5;
+
+		if (level<20){
+			level = lines/5;
+		}
 
 		if (newLines >=2){
 			bonus*=2;

@@ -20,7 +20,7 @@ public class TestMain{
             if (!gameboard.getPause()){
 
         		try{
-        			Thread.sleep(500);
+        			Thread.sleep(1050-50*lsb.getScoreboard().getLevel());
         		} catch (Exception e){
         			System.out.println(e);
         		}
