@@ -16,10 +16,10 @@ public class TestMain{
     	Window window = new Window(gameboard, lsb, rsb);
 		/*Scoreboard scoreboard = new Scoreboard();*/
 		
-    	while(!gameboard.getEndofgame()){
+    	while(!gameboard.getEndOfGame()){
 
       		window.repaint();
-            scoreboard.Score(gameboard);
+            /*scoreboard.Score(gameboard);*/
     		try{
     			Thread.sleep(200);
     		} catch (Exception e){
