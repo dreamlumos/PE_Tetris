@@ -1,6 +1,6 @@
 import java.awt.Color;
 
-public class Tetromino{
+public class Tetromino implements Cloneable{
 
 	private int column0; //colonne de la case [0,0]
 	private int row0; //ligne de la case [0,0]
@@ -86,9 +86,51 @@ public class Tetromino{
 		return colour;
 	}
 
+	public Tetromino getGhostPiece(){
+
+		try {
+
+			Tetromino ghostPiece = (Tetromino) clone();
+
+			boolean finalPos = false;
+			int newRow0 = gameboard.getNbRows();
+
+			while (!finalPos && newRow0 > getRow0()){
+				
+				newRow0--;
+				
+				for (int tile = 0; tile < getTabTiles().length; tile++){
+
+					int i = getColumn0() + getTabTiles()[tile][0];
+					int j = newRow0 + getTabTiles()[tile][1];
+
+					if (j > gameboard.getNbRows()-1 || !gameboard.getTab()[i][j].equals(EMPTY)){
+						break;
+					} else if (tile == getTabTiles().length-1){
+						finalPos = true;
+					}
+
+				}
+
+			}
+
+			ghostPiece.row0 = newRow0;
+
+			return ghostPiece;
+
+		} catch (CloneNotSupportedException e){
+
+			System.out.println(e);
+			return null;
+		
+		}
+
+	}
+
 	public void putOnHold(){
 		column0 = (gameboard.getNbColumns() / 2) - 1;
 		row0 = 1;
+		gameboard.repaint();
 	}
 
 	public boolean moveLeft(){
@@ -104,6 +146,7 @@ public class Tetromino{
 		}
 
 		column0 -= 1;
+		gameboard.repaint();
 		return true;
 
 	}
@@ -121,6 +164,7 @@ public class Tetromino{
 		}
 
 		column0 += 1;
+		gameboard.repaint();
 		return true;
 
 	}	
@@ -140,6 +184,7 @@ public class Tetromino{
 		}
 
 		row0 += 1;
+		gameboard.repaint();
 		return true;
 		
 	}
@@ -178,6 +223,7 @@ public class Tetromino{
 				tabTiles[i][1] = tmp;
 			
 			}
+			gameboard.repaint();
 		}
 
 	}
@@ -211,6 +257,7 @@ public class Tetromino{
 				tabTiles[i][0] = tabTiles[i][1];
 				tabTiles[i][1] = -tmp;
 			}
+			gameboard.repaint();
 		}
 		
 	}

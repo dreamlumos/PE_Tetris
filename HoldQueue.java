@@ -24,6 +24,7 @@ public class HoldQueue extends JPanel{
 		gameboard.getTetromino().putOnHold();
 		Tetromino temp = onHold;
 		onHold = gameboard.getTetromino();
+		repaint();
 
 		if(temp == null){
 			return gameboard.randomTetromino();

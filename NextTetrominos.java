@@ -37,6 +37,7 @@ public class NextTetrominos extends JPanel{
 
 		nextTab[nextTab.length-1] = gameboard.randomTetromino();
 
+		repaint();
 		return nextTetromino;
 
 	}

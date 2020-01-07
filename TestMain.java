@@ -1,6 +1,4 @@
 import java.util.Scanner;
-import java.awt.*;
-import javax.swing.*;
 
 public class TestMain{
 
@@ -22,7 +20,7 @@ public class TestMain{
             if (!gameboard.getPause()){
 
         		try{
-        			Thread.sleep(200);
+        			Thread.sleep(500);
         		} catch (Exception e){
         			System.out.println(e);
         		}

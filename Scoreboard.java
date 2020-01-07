@@ -36,6 +36,7 @@ public class Scoreboard extends JLabel{
 		}
 
 		score = score+bonus*newLines;
+		repaint();
 	}
 
 	public int getScore(){

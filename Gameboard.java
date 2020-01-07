@@ -91,7 +91,6 @@ public class Gameboard extends JPanel{
 		am.put("pause", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
 				pause = !pause;
-				System.out.println("pause");
 			}
 		});
 	}
@@ -170,7 +169,7 @@ public class Gameboard extends JPanel{
 			col=0;
 
 			while (complete && col < nbColumns) {
-				if (tab[col][row] == Tetromino.EMPTY) {
+				if (tab[col][row].equals(Tetromino.EMPTY)) {
 					complete=false;
 				}
 				col=col+1;
@@ -199,6 +198,7 @@ public class Gameboard extends JPanel{
 
 		}
 
+		repaint();
 		return cpt;
 
 	}
@@ -226,6 +226,22 @@ public class Gameboard extends JPanel{
 
 			g.fillRect(i*tileSize, j*tileSize, tileSize, tileSize);
 			g.setColor(new Color(255, 255, 255));
+			g.drawRect(i*tileSize, j*tileSize, tileSize, tileSize);
+
+		}
+
+		Tetromino ghostPiece = tetromino.getGhostPiece();
+
+		if (ghostPiece == null) {
+			return; //Not ideal
+		}
+
+		for (int tile = 0; tile < ghostPiece.getTabTiles().length; tile++){ //draws the ghost piece
+			
+			int i = ghostPiece.getColumn0() + ghostPiece.getTabTiles()[tile][0];
+			int j = ghostPiece.getRow0() + ghostPiece.getTabTiles()[tile][1];
+
+			g.setColor(ghostPiece.getColour());
 			g.drawRect(i*tileSize, j*tileSize, tileSize, tileSize);
 
 		}
