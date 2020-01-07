@@ -135,7 +135,6 @@ public class Tetromino{
 			if (j > gameboard.getNbRows()-1 || !(gameboard.getTab()[i][j].equals(EMPTY))){
 				gameboard.newTetromino(rsb.getNextTetrominos());
 				lsb.getScoreboard().calculateScore(gameboard);
-				lsb.getScoreboard().calculateLevel();
 				return false;
 			}
 		}
