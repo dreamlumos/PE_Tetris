@@ -211,5 +211,4 @@ public class Gameboard extends JPanel{
 		return cpt;
 
 	}
-
 }

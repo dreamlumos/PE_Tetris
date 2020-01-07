@@ -14,11 +14,12 @@ public class TestMain{
         gameboard.bindKeys(lsb.getHoldQueue(), rsb.getNextTetrominos());
 
     	Window window = new Window(gameboard, lsb, rsb);
-
-    	while(!gameboard.getEndOfGame()){
+		/*Scoreboard scoreboard = new Scoreboard();*/
+		
+    	while(!gameboard.getEndofgame()){
 
       		window.repaint();
-            
+            scoreboard.Score(gameboard);
     		try{
     			Thread.sleep(200);
     		} catch (Exception e){

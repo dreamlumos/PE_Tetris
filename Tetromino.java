@@ -135,6 +135,7 @@ public class Tetromino{
 			if (j > gameboard.getNbRows()-1 || !(gameboard.getTab()[i][j].equals(EMPTY))){
 				gameboard.newTetromino(nextTetrominos);
 				gameboard.rowDisappeared();
+				
 				return false;
 			}
 		}
