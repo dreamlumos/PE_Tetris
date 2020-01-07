@@ -19,6 +19,10 @@ public class RightSidebar extends JPanel{
 
 	}
 
+	public NextTetrominos getNextTetrominos(){
+		return nextTetrominos;
+	}
+
 	public void paintComponent(Graphics g){
 
 		super.paintComponent(g); 

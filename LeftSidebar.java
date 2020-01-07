@@ -7,11 +7,11 @@ public class LeftSidebar extends JPanel{
 	private HoldQueue holdQueue;
 	private Scoreboard scoreboard;
 
-	public LeftSidebar(Gameboard gameboard, HoldQueue holdQueue){
+	public LeftSidebar(Gameboard gameboard){
 
 		super();
 
-		this.holdQueue = holdQueue;
+		holdQueue = new HoldQueue(gameboard.getTileSize());
 		scoreboard = new Scoreboard();
 
 		setPreferredSize(new Dimension(6*gameboard.getTileSize(), 12*gameboard.getTileSize()));

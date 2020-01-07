@@ -10,7 +10,7 @@ public class HoldQueue extends JPanel{
 
 		this.tileSize = tileSize;
 		onHold = null;
-		
+
 		setPreferredSize(new Dimension(12*tileSize, 12*tileSize));
 
 	}
@@ -19,11 +19,11 @@ public class HoldQueue extends JPanel{
 		return onHold;
 	}
 
-	public Tetromino setOnHold(Tetromino tetromino, Gameboard gameboard){
+	public Tetromino setOnHold(Gameboard gameboard){
 		
-		tetromino.putOnHold();
+		gameboard.getTetromino().putOnHold();
 		Tetromino temp = onHold;
-		onHold = tetromino;
+		onHold = gameboard.getTetromino();
 
 		if(temp == null){
 			return gameboard.randomTetromino();

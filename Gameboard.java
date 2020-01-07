@@ -11,10 +11,9 @@ public class Gameboard extends JPanel{
 	private int tileSize;
 	private Color[][] tab;
 	private Tetromino tetromino;
-	private HoldQueue holdQueue;
 	private boolean endOfGame;
 
-	public Gameboard(int nbRows, int nbColumns, int tileSize, HoldQueue holdQueue){ 
+	public Gameboard(int nbRows, int nbColumns, int tileSize){ 
 
 		super();
 
@@ -26,7 +25,6 @@ public class Gameboard extends JPanel{
 		this.nbColumns = nbColumns;
 		this.nbRows = nbRows;
 		this.tileSize = tileSize;
-		this.holdQueue = holdQueue;
 		endOfGame = false;
 		tetromino = randomTetromino();
 
@@ -37,6 +35,9 @@ public class Gameboard extends JPanel{
 			}
 		}
 
+	}
+
+	public void bindKeys(HoldQueue holdQueue, NextTetrominos nextTetrominos){
 		/* Key bindings */
 		InputMap im = getInputMap();
 		ActionMap am = getActionMap();
@@ -63,22 +64,21 @@ public class Gameboard extends JPanel{
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "softDrop");
 		am.put("softDrop", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				tetromino.softDrop();
+				tetromino.softDrop(nextTetrominos);
 			}
 		});
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "hardDrop");
 		am.put("hardDrop", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				tetromino.hardDrop();
+				tetromino.hardDrop(nextTetrominos);
 			}
 		});
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_C, 0), "putOnHold");
 		am.put("putOnHold", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				tetromino = holdQueue.setOnHold(tetromino, Gameboard.this);
+				tetromino = holdQueue.setOnHold(Gameboard.this);
 			}
 		});
-
 	}
 
 	public int getNbColumns(){
@@ -105,7 +105,7 @@ public class Gameboard extends JPanel{
 		return new Tetromino((int) (Math.random()*7)+1, this);
 	}
 
-	public void newTetromino(){
+	public void newTetromino(NextTetrominos nextTetrominos){
 
 		for (int tile = 0; tile < tetromino.getTabTiles().length; tile++){
 			
@@ -116,7 +116,7 @@ public class Gameboard extends JPanel{
 
 		}
 
-		tetromino = randomTetromino();
+		tetromino = nextTetrominos.getNextTetromino(this);
 
 		for (int tile = 0; tile < tetromino.getTabTiles().length; tile++){
 
@@ -130,7 +130,6 @@ public class Gameboard extends JPanel{
 		}		
 
 	}
-		
 
 	public boolean getEndOfGame(){
 		return endOfGame;

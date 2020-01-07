@@ -17,51 +17,52 @@ public class Tetromino{
 		this.type=type;
 
 		column0 = (gameboard.getNbColumns() / 2) - 1;
-		row0 = 0;
+		row0 = 1;
 
 		switch (type) {
 
 			case 1: //Tetromino O (yellow)
-				tabTiles = new int[][]{{0,0},{0,1},{1,0},{1,1}};
+				tabTiles = new int[][]{{0,-1},{1,-1},{0,0},{1,0}};
 				colour = new Color(255, 230, 0);
 				break;
 
 			case 2: //Tetromino I (light blue)
-				tabTiles = new int[][]{{0,0},{0,1},{0,2},{0,3}};
+				tabTiles = new int[][]{{-1,0},{0,0},{1,0},{2,0}};
 				colour = new Color(0, 247, 255);
 				break;
 
 			case 3: //Tetromino L (orange)
-				tabTiles = new int[][]{{0,0},{0,1},{0,2},{1,2}};
+				tabTiles = new int[][]{{-1,0},{0,0},{1,0},{1,-1}};
 				colour = new Color(255, 157, 0); 
 				break;
 
 			case 4: //Tetromino J (dark blue)
-				tabTiles = new int[][]{{0,0},{0,1},{0,2},{-1,2}};
+				tabTiles = new int[][]{{-1,-1},{-1,0},{0,0},{1,0}};
 				colour = new Color(0, 106, 255);
 				break;
 
 			case 5: //Tetromino T (purple)
-				tabTiles = new int[][]{{0,0},{1,0},{-1,0},{0,1}};
+				tabTiles = new int[][]{{-1,0},{0,0},{0,-1},{1,0}};
 				colour = new Color(109, 50, 168); 
 				break;	
 
-			case 6: //Tetromino S (red)
-				tabTiles = new int[][]{{0,0},{1,0},{0,1},{-1,1}};
-				colour = new Color(255, 0, 0);
-				break;
-
-			case 7: //Tetromino Z (green) 
-				tabTiles = new int[][]{{0,0},{1,0},{1,1},{2,1}};
+			case 6: //Tetromino S (green)
+				tabTiles = new int[][]{{-1,0},{0,0},{0,-1},{1,-1}};
 				colour = new Color(141, 230, 53);
 				break;
 
+			case 7: //Tetromino Z (red) 
+				tabTiles = new int[][]{{-1,-1},{0,-1},{0,0},{1,0}};
+				colour = new Color(255, 0, 0);
+				break;
+
 		}
 
-		int nbRotations = (int) (Math.random()*4);
+/*		int nbRotations = (int) (Math.random()*4);
 		for (int i = 0; i < nbRotations; i++){
-			/*rotateRight();*/
+			rotateRight();
 		}
+*/
 
 	}
 
@@ -87,7 +88,7 @@ public class Tetromino{
 
 	public void putOnHold(){
 		column0 = (gameboard.getNbColumns() / 2) - 1;
-		row0 = 0;
+		row0 = 1;
 	}
 
 	public boolean moveLeft(){
@@ -124,7 +125,7 @@ public class Tetromino{
 
 	}	
 
-	public boolean softDrop(){
+	public boolean softDrop(NextTetrominos nextTetrominos){
 
 		for (int tile=0; tile < tabTiles.length; tile++){  
 
@@ -132,7 +133,7 @@ public class Tetromino{
 			int j = row0 + 1 + tabTiles[tile][1];
 
 			if (j > gameboard.getNbRows()-1 || !(gameboard.getTab()[i][j].equals(EMPTY))){
-				gameboard.newTetromino();
+				gameboard.newTetromino(nextTetrominos);
 				gameboard.rowDisappeared();
 				return false;
 			}
@@ -143,10 +144,8 @@ public class Tetromino{
 		
 	}
 
-	public void hardDrop(){
-		
-		while(softDrop());
-
+	public void hardDrop(NextTetrominos nextTetrominos){
+		while(softDrop(nextTetrominos));
 	}
 
 	public void rotateRight(){
