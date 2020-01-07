@@ -19,7 +19,7 @@ public class NextTetrominos extends JPanel{
 			nextTab[i] = gameboard.randomTetromino();
 		}
 
-		setPreferredSize(new Dimension(6*tileSize, 8*tileSize));
+		setPreferredSize(new Dimension(6*tileSize, 11*tileSize));
 
 	}
 
@@ -45,8 +45,10 @@ public class NextTetrominos extends JPanel{
 
 		super.paintComponent(g); 
 		setBackground(new Color(0, 0, 0));
+		g.setColor(new Color(255, 255, 255));
+		g.drawString("NEXT", 10, 10);
 
-		int row = 1;
+		int row = 3;
 
 		for (int k=0; k<nextTab.length; k++){ //for each tetromino in the queue
 

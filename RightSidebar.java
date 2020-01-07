@@ -11,9 +11,8 @@ public class RightSidebar extends JPanel{
 
 		nextTetrominos = new NextTetrominos(gameboard);
 
-		setPreferredSize(new Dimension(6*gameboard.getTileSize(), gameboard.getNbColumns()*gameboard.getTileSize()));
+		setPreferredSize(new Dimension(8*gameboard.getTileSize(), gameboard.getNbRows()*gameboard.getTileSize()));
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS)); //vertical axis
-		setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 0));
 
 		add(nextTetrominos);
 
@@ -26,7 +25,7 @@ public class RightSidebar extends JPanel{
 	public void paintComponent(Graphics g){
 
 		super.paintComponent(g); 
-		setBackground(new Color(0, 0, 0));
+		setBackground(new Color(0, 0, 255));
 
 	}
 

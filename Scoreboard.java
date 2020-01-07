@@ -16,17 +16,25 @@ public class Scoreboard extends JLabel{
 		score = 0;
 		level = 1;
 		lines = 0;
-		bonus =20;
+		bonus = 20;
+
+		super.setText("<html> SCORE <br>"+score+"<br><br> LEVEL <br>"+level+"<br><br> LINES CLEARED<br>"+lines+"</html>");
 
 	}
-	public void Score(Gameboard gameboard){
-		score++;
-		lines=gameboard.rowDisappeared();
-		if (gameboard.rowDisappeared() >=2){
+
+	public void calculateScore(Gameboard gameboard){
+		
+		int newLines = gameboard.lineClear();
+
+		lines += newLines;
+
+		if (newLines >=2){
 			bonus*=2;
 		}
-		score=score+bonus*gameboard.rowDisappeared();
+
+		score = score+bonus*newLines;
 	}
+
 	public int getScore(){
 		return score;
 	}

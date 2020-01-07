@@ -125,7 +125,7 @@ public class Tetromino{
 
 	}	
 
-	public boolean softDrop(NextTetrominos nextTetrominos){
+	public boolean softDrop(LeftSidebar lsb, RightSidebar rsb){
 
 		for (int tile=0; tile < tabTiles.length; tile++){  
 
@@ -133,9 +133,8 @@ public class Tetromino{
 			int j = row0 + 1 + tabTiles[tile][1];
 
 			if (j > gameboard.getNbRows()-1 || !(gameboard.getTab()[i][j].equals(EMPTY))){
-				gameboard.newTetromino(nextTetrominos);
-				gameboard.rowDisappeared();
-				
+				gameboard.newTetromino(rsb.getNextTetrominos());
+				lsb.getScoreboard().calculateScore(gameboard);
 				return false;
 			}
 		}
@@ -145,8 +144,8 @@ public class Tetromino{
 		
 	}
 
-	public void hardDrop(NextTetrominos nextTetrominos){
-		while(softDrop(nextTetrominos));
+	public void hardDrop(LeftSidebar lsb, RightSidebar rsb){
+		while(softDrop(lsb, rsb));
 	}
 
 	public void rotateRight(){
