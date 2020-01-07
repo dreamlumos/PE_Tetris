@@ -50,7 +50,7 @@ public class Scoreboard extends JLabel{
 	public void paintComponent(Graphics g){
 
 		super.paintComponent(g);
-
+		super.setText("<html> SCORE <br>"+score+"<br><br> LEVEL <br>"+level+"<br><br> LINES CLEARED<br>"+lines+"</html>");
 
 	}
 
