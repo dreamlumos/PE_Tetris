@@ -1,4 +1,5 @@
-import java.awt.*;
+/* import java.awt.*; */
+import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.*;
@@ -12,6 +13,7 @@ public class Gameboard extends JPanel{
 	private Color[][] tab;
 	private Tetromino tetromino;
 	private boolean endOfGame;
+	private boolean pause;
 
 	public Gameboard(int nbRows, int nbColumns, int tileSize){ 
 
@@ -26,6 +28,7 @@ public class Gameboard extends JPanel{
 		this.nbRows = nbRows;
 		this.tileSize = tileSize;
 		endOfGame = false;
+		pause = false;
 		tetromino = randomTetromino();
 
 		tab = new Color[nbColumns][nbRows];
@@ -45,38 +48,50 @@ public class Gameboard extends JPanel{
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "moveLeft");
 		am.put("moveLeft", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				tetromino.moveLeft();
+				if (!Gameboard.this.getPause())
+					tetromino.moveLeft();
 			}
 		});
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "moveRight");
 		am.put("moveRight", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				tetromino.moveRight();
+				if (!Gameboard.this.getPause())
+					tetromino.moveRight();
 			}
 		});
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "rotateRight");
 		am.put("rotateRight", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				if(tetromino.getType()!=1)
+				if(!Gameboard.this.getPause() && tetromino.getType()!=1)
 					tetromino.rotateRight();
 			}
 		});
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "softDrop");
 		am.put("softDrop", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				tetromino.softDrop(lsb, rsb);
+				if (!Gameboard.this.getPause())
+					tetromino.softDrop(lsb, rsb);
 			}
 		});
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "hardDrop");
 		am.put("hardDrop", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				tetromino.hardDrop(lsb, rsb);
+				if (!Gameboard.this.getPause())
+					tetromino.hardDrop(lsb, rsb);
 			}
 		});
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_C, 0), "putOnHold");
 		am.put("putOnHold", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				tetromino = lsb.getHoldQueue().setOnHold(Gameboard.this);
+				if (!Gameboard.this.getPause())
+					tetromino = lsb.getHoldQueue().setOnHold(Gameboard.this);
+			}
+		});
+		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "pause");
+		am.put("pause", new AbstractAction(){
+			public void actionPerformed(ActionEvent e){
+				pause = !pause;
+				System.out.println("pause");
 			}
 		});
 	}
@@ -99,6 +114,10 @@ public class Gameboard extends JPanel{
 
 	public Tetromino getTetromino(){
 		return tetromino;
+	}
+
+	public boolean getPause(){
+		return pause;
 	}
 
 	public Tetromino randomTetromino(){

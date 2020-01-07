@@ -36,8 +36,9 @@ public class HoldQueue extends JPanel{
 
 		super.paintComponent(g);
 		setBackground(new Color(0, 0, 0));
-		g.setColor(new Color(255, 255, 255));
-		g.drawString("HOLD", 10, 10);
+		g.setFont(UIManager.getFont("Label.font"));
+		g.setColor(UIManager.getColor("Label.foreground"));
+		g.drawString("HOLD", 15, 15);
 
 		if (onHold != null){
 

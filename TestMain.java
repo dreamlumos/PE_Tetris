@@ -15,17 +15,29 @@ public class TestMain{
 
     	Window window = new Window(gameboard, lsb, rsb);
 		
-    	while(!gameboard.getEndOfGame()){
+    	while (!gameboard.getEndOfGame()){
+            
+            window.repaint();
+            
+            if (!gameboard.getPause()){
 
-      		window.repaint();
+        		try{
+        			Thread.sleep(200);
+        		} catch (Exception e){
+        			System.out.println(e);
+        		}
+        		gameboard.getTetromino().softDrop(lsb, rsb);
 
-    		try{
-    			Thread.sleep(200);
-    		} catch (Exception e){
-    			System.out.println(e);
-    		}
-    		gameboard.getTetromino().softDrop(lsb, rsb);
-                
+            } else { //paused
+
+                try{
+                    Thread.sleep(5);
+                } catch (Exception e){
+                    System.out.println(e);
+                } 
+
+            }
+
         }
 
 	}
