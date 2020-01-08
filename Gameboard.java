@@ -2,7 +2,11 @@ import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.*;
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.AbstractAction;
+import javax.swing.KeyStroke;
+import javax.swing.InputMap;
+import javax.swing.ActionMap;
 
 public class Gameboard extends JPanel{
 
@@ -39,7 +43,7 @@ public class Gameboard extends JPanel{
 
 	}
 
-	public void bindKeys(LeftSidebar lsb, RightSidebar rsb){
+	public void bindKeys(LeftSidebar lsb, RightSidebar rsb, Game game){
 		/* Key bindings */
 		InputMap im = getInputMap();
 		ActionMap am = getActionMap();
@@ -90,6 +94,9 @@ public class Gameboard extends JPanel{
 		am.put("pause", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
 				pause = !pause;
+				if (!pause){
+					game.unpause();
+				}
 			}
 		});
 	}
@@ -124,6 +131,7 @@ public class Gameboard extends JPanel{
 
 	public void newTetromino(NextTetrominos nextTetrominos){
 
+		/* Registering final position of tetromino on the gameboard */
 		for (int tile = 0; tile < tetromino.getTabTiles().length; tile++){
 			
 			int i = tetromino.getColumn0() + tetromino.getTabTiles()[tile][0];
@@ -135,6 +143,7 @@ public class Gameboard extends JPanel{
 
 		tetromino = nextTetrominos.getNextTetromino(this);
 
+		/* Checking for end of game */
 		for (int tile = 0; tile < tetromino.getTabTiles().length; tile++){
 
 			int i = tetromino.getColumn0() + tetromino.getTabTiles()[tile][0];
@@ -142,6 +151,7 @@ public class Gameboard extends JPanel{
 
 			if(!(tab[i][j].equals(Tetromino.EMPTY))){
 				endOfGame();
+				System.out.println("endofgame test");
 			}
 
 		}		

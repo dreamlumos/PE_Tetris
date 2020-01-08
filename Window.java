@@ -1,41 +1,70 @@
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import javax.swing.JFrame;
+import java.awt.*;
+import javax.swing.*;
 
-public class Window extends JFrame{
+public class Window extends JPanel{
+	
+	private Menu menu;
+	private About about;
+	private Instructions instructions;
+	private Game game;
+	private JFrame frame;
+/*	private PauseMenu pauseMenu; //should be in Game
+	private GameOverMenu gameOverMenu; //should be in Game*/
 
-	private Gameboard gameboard;
-	private LeftSidebar lsb;
-	private RightSidebar rsb;
+	public Window(int nbColumns, int nbRows, int tileSize, JFrame frame){
 
-	public Window(Gameboard gameboard, LeftSidebar lsb, RightSidebar rsb){
+		super();
 
-		this.gameboard = gameboard;
-		this.lsb = lsb;
-		this.rsb = rsb;
-		setTitle("Tetris");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		/* JPanel preferences */
+/*		setPreferredSize(new Dimension (100,300));
+		setFocusable(true);*/
 
-		GridBagConstraints gbc = new GridBagConstraints();
-		setLayout(new GridBagLayout());
+		setLayout(new CardLayout());
 
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		add(lsb, gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 0;
-		add(gameboard, gbc);
-		gbc.gridx = 2;
-		gbc.gridy = 0;
-		add(rsb, gbc);
-		pack();
-		setLocationRelativeTo(null);
-		setVisible(true);
+		menu = new Menu(this);
+		about = new About(this);
+		instructions = new Instructions(this);
+		game = new Game(nbColumns, nbRows, tileSize);
+		this.frame = frame;
+		add(menu, "Menu");
+		add(about, "About");
+		add(instructions, "Instructions");
+		add(game, "Game");
+
+		showMenu();
 
 	}
 
+	public void showMenu(){
+		CardLayout cl = (CardLayout) getLayout();
+		cl.show(this, "Menu");
+		menu.requestFocusInWindow();
+		repaint();
+	}
 
+	public void showAbout(){
+		CardLayout cl = (CardLayout) getLayout();
+		cl.show(this, "About");
+	}
+
+	public void showInstructions(){
+		CardLayout cl = (CardLayout) getLayout();
+		cl.show(this, "Instructions");
+	}
+
+	public void showGame(){
+		CardLayout cl = (CardLayout) getLayout();
+		cl.show(this, "Game");
+		frame.validate();
+		frame.repaint();
+		frame.pack();
+		game.play();
+	}
+
+	public void paintComponent(Graphics g){
+
+		super.paintComponent(g); 
+		setBackground(new Color(0, 0, 0));
+
+	}
 }
