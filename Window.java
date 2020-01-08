@@ -61,7 +61,7 @@ public class Window extends JPanel{
 		game.play();
 	}
 
-	public void newGame(){
+	public void newGame(int nbColumns, int nbRows, int tileSize){
 		game = new Game(nbColumns, nbRows, tileSize);
 	}
 
