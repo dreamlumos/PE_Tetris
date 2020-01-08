@@ -61,6 +61,10 @@ public class Window extends JPanel{
 		game.play();
 	}
 
+	public void newGame(){
+		game = new Game(nbColumns, nbRows, tileSize);
+	}
+
 	public void paintComponent(Graphics g){
 
 		super.paintComponent(g); 
