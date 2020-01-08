@@ -93,21 +93,21 @@ public class Tetromino implements Cloneable{
 			Tetromino ghostPiece = (Tetromino) clone();
 
 			boolean finalPos = false;
-			int newRow0 = gameboard.getNbRows();
+			int newRow0 = row0+1;
 
-			while (!finalPos && newRow0 > getRow0()){
+			while (!finalPos){
 				
-				newRow0--;
-				
+				//Check if next row is free
 				for (int tile = 0; tile < getTabTiles().length; tile++){
 
 					int i = getColumn0() + getTabTiles()[tile][0];
-					int j = newRow0 + getTabTiles()[tile][1];
+					int j = newRow0 + 1 + getTabTiles()[tile][1];
 
 					if (j > gameboard.getNbRows()-1 || !gameboard.getTab()[i][j].equals(EMPTY)){
+						finalPos = true;
 						break;
 					} else if (tile == getTabTiles().length-1){
-						finalPos = true;
+						newRow0++;
 					}
 
 				}

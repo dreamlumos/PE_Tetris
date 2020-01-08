@@ -1,2 +1,7 @@
 *.class
+*.html
+*.css
+*.js
+*.zip
+*.png
 /bin

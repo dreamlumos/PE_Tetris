@@ -51,42 +51,42 @@ public class Gameboard extends JPanel{
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "moveLeft");
 		am.put("moveLeft", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				if (!Gameboard.this.getPause())
+				if (!pause && !endOfGame)
 					tetromino.moveLeft();
 			}
 		});
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "moveRight");
 		am.put("moveRight", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				if (!Gameboard.this.getPause())
+				if (!pause && !endOfGame)
 					tetromino.moveRight();
 			}
 		});
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "rotateRight");
 		am.put("rotateRight", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				if(!Gameboard.this.getPause() && tetromino.getType()!=1)
+				if(!pause && !endOfGame && tetromino.getType()!=1)
 					tetromino.rotateRight();
 			}
 		});
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "softDrop");
 		am.put("softDrop", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				if (!Gameboard.this.getPause())
+				if (!pause && !endOfGame)
 					tetromino.softDrop(lsb, rsb);
 			}
 		});
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "hardDrop");
 		am.put("hardDrop", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				if (!Gameboard.this.getPause())
+				if (!pause && !endOfGame)
 					tetromino.hardDrop(lsb, rsb);
 			}
 		});
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_C, 0), "putOnHold");
 		am.put("putOnHold", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				if (!Gameboard.this.getPause())
+				if (!pause && !endOfGame)
 					tetromino = lsb.getHoldQueue().setOnHold(Gameboard.this);
 			}
 		});
@@ -151,7 +151,6 @@ public class Gameboard extends JPanel{
 
 			if(!(tab[i][j].equals(Tetromino.EMPTY))){
 				endOfGame();
-				System.out.println("endofgame test");
 			}
 
 		}		
