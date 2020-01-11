@@ -15,10 +15,7 @@ public class Window extends JPanel{
 
 		super();
 
-		/* JPanel preferences */
-/*		setPreferredSize(new Dimension (100,300));
-		setFocusable(true);*/
-
+		/* Layout */
 		setLayout(new CardLayout());
 
 		menu = new Menu(this);

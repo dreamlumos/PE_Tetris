@@ -165,6 +165,8 @@ public class Gameboard extends JPanel{
 
 	public void endOfGame(){
 		endOfGame = true;
+		repaint();
+
 	}
 
 	public int lineClear(){

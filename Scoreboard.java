@@ -24,13 +24,13 @@ public class Scoreboard extends JLabel{
 
 	public void calculateScore(Gameboard gameboard){
 
-		score++; //1pt for each softDrop
+		score++; //1pt for each tetromino dropped
 		
 		int newLines = gameboard.lineClear();
 
 		lines += newLines;
 
-		if (level<20){
+		if (level<20){ //level-up with every 5 lines cleared
 			level = lines/5;
 		}
 
