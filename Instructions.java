@@ -24,7 +24,7 @@ public class Instructions extends JPanel{
 
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); //vertical axis
 
-		JLabel text = new JLabel("Instructions go here");
+		JLabel text = new JLabel("<html> Left and right arrows to move left and right. <br> Up arrow to rotate clockwise. <br> Down arrow to soft drop. <br> Space bar to hard drop. <br> C to hold. <br> Escape to pause. </html>");
 		text.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		JButton menuButton = new JButton(new AbstractAction(" Back to menu "){
