@@ -7,6 +7,7 @@ import javax.swing.AbstractAction;
 import javax.swing.KeyStroke;
 import javax.swing.InputMap;
 import javax.swing.ActionMap;
+import javax.swing.BorderFactory;
 
 public class Gameboard extends JPanel{
 
@@ -25,6 +26,7 @@ public class Gameboard extends JPanel{
 		/* JPanel preferences */
 		setPreferredSize(new Dimension (nbColumns*tileSize, nbRows*tileSize));
 		setFocusable(true);
+		setBorder(BorderFactory.createLineBorder(Color.white));
 
 		/* Initialisations */
 		this.nbColumns = nbColumns;
@@ -221,26 +223,12 @@ public class Gameboard extends JPanel{
 			for (int j = 0; j < nbRows; j++){
 				g.setColor(tab[i][j]);
 				g.fillRect(i*tileSize, j*tileSize, tileSize, tileSize);
-				g.setColor(new Color(255, 255, 255));
-				g.drawRect(i*tileSize, j*tileSize, tileSize, tileSize);
+
+				if (!tab[i][j].equals(Tetromino.EMPTY)){
+					g.setColor(new Color(255, 255, 255));
+					g.drawRect(i*tileSize, j*tileSize, tileSize, tileSize);
+				}
 			}
-		}
-
-		/* Drawing the ghost piece */
-		Tetromino ghostPiece = tetromino.getGhostPiece();
-
-		if (ghostPiece == null) {
-			return; //Not ideal
-		}
-
-		for (int tile = 0; tile < ghostPiece.getTabTiles().length; tile++){
-			
-			int i = ghostPiece.getColumn0() + ghostPiece.getTabTiles()[tile][0];
-			int j = ghostPiece.getRow0() + ghostPiece.getTabTiles()[tile][1];
-
-			g.setColor(ghostPiece.getColour());
-			g.drawRect(i*tileSize, j*tileSize, tileSize, tileSize);
-
 		}
 
 		/* Drawing the current tetromino */
@@ -249,13 +237,43 @@ public class Gameboard extends JPanel{
 			int i = tetromino.getColumn0() + tetromino.getTabTiles()[tile][0];
 			int j = tetromino.getRow0() + tetromino.getTabTiles()[tile][1];
 
-			g.setColor(tetromino.getColour());
+			if (endOfGame){
+				j--;
+				if (j>=0){
+					for (int k=0; k<nbColumns; k++){
+						if (!tab[k][j].equals(Tetromino.EMPTY)){
+							j--;
+							break; //not ideal
+						}
+					}
+				}
+			}
 
-			g.fillRect(i*tileSize, j*tileSize, tileSize, tileSize);
-			g.setColor(new Color(255, 255, 255));
-			g.drawRect(i*tileSize, j*tileSize, tileSize, tileSize);
+			if(j >= 0 && tab[i][j].equals(Tetromino.EMPTY)){ //in case game is over
+				g.setColor(tetromino.getColour());
+				g.fillRect(i*tileSize, j*tileSize, tileSize, tileSize);
+				g.setColor(new Color(255, 255, 255));
+				g.drawRect(i*tileSize, j*tileSize, tileSize, tileSize);
+			}
 
 		}
+
+		if (!endOfGame){
+
+			/* Drawing the ghost piece */
+			Tetromino ghostPiece = tetromino.getGhostPiece();
+
+			for (int tile = 0; tile < ghostPiece.getTabTiles().length; tile++){
+				
+				int i = ghostPiece.getColumn0() + ghostPiece.getTabTiles()[tile][0];
+				int j = ghostPiece.getRow0() + ghostPiece.getTabTiles()[tile][1];
+
+				g.setColor(ghostPiece.getColour());
+				g.drawRect(i*tileSize, j*tileSize, tileSize, tileSize);
+
+			}
+		}
+		
 	}
 	
 }

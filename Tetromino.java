@@ -93,7 +93,7 @@ public class Tetromino implements Cloneable{
 			Tetromino ghostPiece = (Tetromino) clone();
 
 			boolean finalPos = false;
-			int newRow0 = row0+1;
+			int newRow0 = row0;
 
 			while (!finalPos){
 				
