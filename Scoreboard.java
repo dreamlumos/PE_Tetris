@@ -25,7 +25,7 @@ public class Scoreboard extends JLabel{
 	public void calculateScore(Gameboard gameboard){
 
 		score++; //1pt for each tetromino dropped
-		
+		bonus = 20;
 		int newLines = gameboard.lineClear();
 
 		lines += newLines;
@@ -33,11 +33,14 @@ public class Scoreboard extends JLabel{
 		if (level<20){ //level-up with every 5 lines cleared
 			level = lines/5;
 		}
-
-		if (newLines >=2){
-			bonus*=2;
+		if (newLines==4){
+			bonus*=4;
 		}
-
+		else{
+			if (newLines >=2){
+				bonus*=2;
+			}
+		}
 		score = score+bonus*newLines;
 		repaint();
 	}
