@@ -33,7 +33,7 @@ public class Scoreboard extends JLabel{
 		if (level<20){ //level-up with every 5 lines cleared
 			level = lines/5;
 		}
-		if (newLines==4){
+		if (newLines>=4){
 			bonus*=4;
 		}
 		else{
