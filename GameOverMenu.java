@@ -24,7 +24,9 @@ public GameOverMenu(int nbColumns, int nbRows, int tileSize, Window window, Game
 		/* Layout */
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); //vertical axis
 
-		JLabel title = new JLabel(" SCORE "+game.getLeftSidebar().getScoreboard().getScore());
+		//JLabel title = new JLabel(" SCORE "+game.getLeftSidebar().getScoreboard().getScore());
+		
+		JLabel title = new JLabel("GAME OVER");
 		title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		JButton playButton = new JButton(new AbstractAction(" New Game "){
@@ -47,6 +49,7 @@ public GameOverMenu(int nbColumns, int nbRows, int tileSize, Window window, Game
 		});
 		aboutButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+		add(Box.createRigidArea(new Dimension(0,20)));
 		add(title);
 		add(Box.createRigidArea(new Dimension(0,20)));
 		add(playButton);
