@@ -59,13 +59,13 @@ public class Window extends JPanel{
 		cl.show(this, "Paused");
 	}
 
-	public void showGameOverMenu(){
+	public void showGameOverMenu(int nbColumns, int nbRows, int tileSize, Window window){
 		CardLayout cl = (CardLayout) getLayout();
 		cl.show(this, "Game Over");
+		newGame(nbColumns, nbRows, tileSize, window);
 	}
 
 	public void showGame(){
-		//add(game, "Game");
 		CardLayout cl = (CardLayout) getLayout();
 		cl.show(this, "Game");
 		frame.validate();
@@ -76,7 +76,7 @@ public class Window extends JPanel{
 
 	public void newGame(int nbColumns, int nbRows, int tileSize, Window window){
 		game = new Game(nbColumns, nbRows, tileSize, window);
-		showGame();
+		add(game, "Game");
 	}
 
 	public Game getGame(){

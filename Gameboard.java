@@ -174,7 +174,7 @@ public class Gameboard extends JPanel{
 	public void gameOver(){
 		gameOver = true;
 		repaint();
-		window.showGameOverMenu();
+		window.showGameOverMenu(nbColumns, nbRows, tileSize, window);
 
 	}
 

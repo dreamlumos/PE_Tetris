@@ -30,6 +30,7 @@ public GameOverMenu(int nbColumns, int nbRows, int tileSize, Window window, Game
 		JButton playButton = new JButton(new AbstractAction(" New Game "){
 			public void actionPerformed(ActionEvent e){
 				window.newGame(nbColumns, nbRows, tileSize, window);
+				window.showGame();
 			}		
 		});
 		playButton.setAlignmentX(Component.CENTER_ALIGNMENT);
