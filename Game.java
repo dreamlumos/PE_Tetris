@@ -15,21 +15,20 @@ public class Game extends JPanel{
 
 	private Timer softDropTimer = new Timer(1050, new ActionListener() {
 		public void actionPerformed(ActionEvent e){
-			if(!gameboard.getEndOfGame() && !gameboard.getPause()){
+			if (gameboard.getGameOver() || gameboard.getPause()){
+				stop();
+			} else {
 				updateSpeed();
 				gameboard.getTetromino().softDrop(lsb, rsb);
-			}
-			else {
-				stop();
 			}
 		}
 	});
 
-	public Game(int nbColumns, int nbRows, int tileSize){
+	public Game(int nbColumns, int nbRows, int tileSize, Window window){
 
 		setFocusable(true);
 
-		gameboard = new Gameboard(nbColumns, nbRows, tileSize);
+		gameboard = new Gameboard(nbColumns, nbRows, tileSize, window);
         lsb = new LeftSidebar(gameboard);
         rsb = new RightSidebar(gameboard);
         gameboard.bindKeys(lsb, rsb, this);
@@ -67,7 +66,11 @@ public class Game extends JPanel{
 
 	public void play(){
 		gameboard.requestFocusInWindow();
-		softDropTimer.start();
+		if (gameboard.getPause()){
+			unpause();
+		} else {
+			softDropTimer.start();
+		}
 	}
 
 	public void stop(){
@@ -75,6 +78,7 @@ public class Game extends JPanel{
 	}
 
 	public void unpause(){
+		gameboard.setPause(this);
 		softDropTimer.restart();
 	}
 

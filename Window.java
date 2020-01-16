@@ -8,8 +8,8 @@ public class Window extends JPanel{
 	private Instructions instructions;
 	private Game game;
 	private JFrame frame;
-/*	private PauseMenu pauseMenu; //should be in Game
-	private GameOverMenu gameOverMenu; //should be in Game*/
+	private PauseMenu pauseMenu;
+	private GameOverMenu gameOverMenu;
 
 	public Window(int nbColumns, int nbRows, int tileSize, JFrame frame){
 
@@ -21,12 +21,16 @@ public class Window extends JPanel{
 		menu = new Menu(this);
 		about = new About(this);
 		instructions = new Instructions(this);
-		game = new Game(nbColumns, nbRows, tileSize);
+		game = new Game(nbColumns, nbRows, tileSize, this);
+		pauseMenu = new PauseMenu(nbColumns, nbRows, tileSize, this, game);
+		gameOverMenu = new GameOverMenu(nbColumns, nbRows, tileSize, this, game);
 		this.frame = frame;
 		add(menu, "Menu");
 		add(about, "About");
 		add(instructions, "Instructions");
 		add(game, "Game");
+		add(pauseMenu, "Paused");
+		add(gameOverMenu, "Game Over");
 
 		showMenu();
 
@@ -49,7 +53,19 @@ public class Window extends JPanel{
 		cl.show(this, "Instructions");
 	}
 
+	public void showPauseMenu(){
+		pauseMenu.requestFocusInWindow();
+		CardLayout cl = (CardLayout) getLayout();
+		cl.show(this, "Paused");
+	}
+
+	public void showGameOverMenu(){
+		CardLayout cl = (CardLayout) getLayout();
+		cl.show(this, "Game Over");
+	}
+
 	public void showGame(){
+		//add(game, "Game");
 		CardLayout cl = (CardLayout) getLayout();
 		cl.show(this, "Game");
 		frame.validate();
@@ -58,8 +74,13 @@ public class Window extends JPanel{
 		game.play();
 	}
 
-	public void newGame(int nbColumns, int nbRows, int tileSize){
-		game = new Game(nbColumns, nbRows, tileSize);
+	public void newGame(int nbColumns, int nbRows, int tileSize, Window window){
+		game = new Game(nbColumns, nbRows, tileSize, window);
+		showGame();
+	}
+
+	public Game getGame(){
+		return game;
 	}
 
 	public void paintComponent(Graphics g){

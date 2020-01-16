@@ -16,10 +16,11 @@ public class Gameboard extends JPanel{
 	private int tileSize;
 	private Color[][] tab;
 	private Tetromino tetromino;
-	private boolean endOfGame;
+	private boolean gameOver;
 	private boolean pause;
+	private Window window;
 
-	public Gameboard(int nbColumns, int nbRows, int tileSize){ 
+	public Gameboard(int nbColumns, int nbRows, int tileSize, Window window){ 
 
 		super();
 
@@ -32,7 +33,8 @@ public class Gameboard extends JPanel{
 		this.nbColumns = nbColumns;
 		this.nbRows = nbRows;
 		this.tileSize = tileSize;
-		endOfGame = false;
+		this.window = window;
+		gameOver = false;
 		pause = false;
 		tetromino = randomTetromino();
 
@@ -53,52 +55,49 @@ public class Gameboard extends JPanel{
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "moveLeft");
 		am.put("moveLeft", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				if (!pause && !endOfGame)
+				if (!pause && !gameOver)
 					tetromino.moveLeft();
 			}
 		});
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "moveRight");
 		am.put("moveRight", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				if (!pause && !endOfGame)
+				if (!pause && !gameOver)
 					tetromino.moveRight();
 			}
 		});
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "rotateRight");
 		am.put("rotateRight", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				if(!pause && !endOfGame && tetromino.getType()!=1)
+				if(!pause && !gameOver && tetromino.getType()!=1)
 					tetromino.rotateRight();
 			}
 		});
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "softDrop");
 		am.put("softDrop", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				if (!pause && !endOfGame)
+				if (!pause && !gameOver)
 					tetromino.softDrop(lsb, rsb);
 			}
 		});
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "hardDrop");
 		am.put("hardDrop", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				if (!pause && !endOfGame)
+				if (!pause && !gameOver)
 					tetromino.hardDrop(lsb, rsb);
 			}
 		});
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_C, 0), "putOnHold");
 		am.put("putOnHold", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				if (!pause && !endOfGame)
+				if (!pause && !gameOver)
 					tetromino = lsb.getHoldQueue().setOnHold(Gameboard.this);
 			}
 		});
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "pause");
 		am.put("pause", new AbstractAction(){
 			public void actionPerformed(ActionEvent e){
-				pause = !pause;
-				if (!pause){
-					game.unpause();
-				}
+				setPause(game);
 			}
 		});
 	}
@@ -127,6 +126,15 @@ public class Gameboard extends JPanel{
 		return pause;
 	}
 
+	public void setPause(Game game){
+		pause = !pause;
+		if (!pause){
+			window.showPauseMenu();
+		} else {
+			game.unpause();
+		}
+	}
+
 	public Tetromino randomTetromino(){
 		return new Tetromino((int) (Math.random()*7)+1, this);
 	}
@@ -152,20 +160,21 @@ public class Gameboard extends JPanel{
 			int j = tetromino.getRow0() + tetromino.getTabTiles()[tile][1];
 
 			if(!(tab[i][j].equals(Tetromino.EMPTY))){
-				endOfGame();
+				gameOver();
 			}
 
 		}		
 
 	}
 
-	public boolean getEndOfGame(){
-		return endOfGame;
+	public boolean getGameOver(){
+		return gameOver;
 	}
 
-	public void endOfGame(){
-		endOfGame = true;
+	public void gameOver(){
+		gameOver = true;
 		repaint();
+		window.showGameOverMenu();
 
 	}
 
@@ -239,7 +248,7 @@ public class Gameboard extends JPanel{
 			int i = tetromino.getColumn0() + tetromino.getTabTiles()[tile][0];
 			int j = tetromino.getRow0() + tetromino.getTabTiles()[tile][1];
 
-			if (endOfGame){
+			if (gameOver){
 				j--;
 				if (j>=0){
 					for (int k=0; k<nbColumns; k++){
@@ -260,7 +269,7 @@ public class Gameboard extends JPanel{
 
 		}
 
-		if (!endOfGame){
+		if (!gameOver){
 
 			/* Drawing the ghost piece */
 			Tetromino ghostPiece = tetromino.getGhostPiece();
